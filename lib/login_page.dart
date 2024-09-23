@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  bool _obscureText = true; // Variabel untuk mengatur visibility password
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +26,7 @@ class LoginPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10),
-            
+
             // Placeholder Image menggunakan Image.asset
             Image.asset(
               'assets/images/login.jpeg',  // Path gambar dari aset lokal
@@ -31,7 +38,6 @@ class LoginPage extends StatelessWidget {
             SizedBox(
               width: 350,  // Tentukan lebar kolom TextField
               child: TextField(
-                obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(
@@ -46,17 +52,26 @@ class LoginPage extends StatelessWidget {
             SizedBox(
               width: 350,  // Tentukan lebar kolom TextField
               child: TextField(
-                obscureText: true,
+                obscureText: _obscureText,
                 decoration: InputDecoration(
                   labelText: 'Sandi',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(40),  // Mengatur radius sudut
                   ),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscureText ? Icons.visibility : Icons.visibility_off,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscureText = !_obscureText; // Toggle visibility
+                      });
+                    },
+                  ),
                 ),
               ),
             ),
             SizedBox(height: 10),
-
 
             // Forgot Password
             Align(
