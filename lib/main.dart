@@ -3,6 +3,7 @@ import 'login_page.dart';
 import 'home_page.dart';
 import 'unit_page.dart';
 import 'ubahnohp_page.dart';
+import 'riwayat_nilai.dart';
 
 void main() {
   runApp(MyApp());
