@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
-import 'detail_nilai.dart'; // Pastikan untuk membuat file ini
+import 'detail_nilai.dart';
+import 'profil.dart'; // Pastikan file profil.dart sudah ada
 
 class RiwayatNilaiPage extends StatefulWidget {
   const RiwayatNilaiPage({super.key});
@@ -18,15 +19,24 @@ class _RiwayatNilaiPageState extends State<RiwayatNilaiPage> {
     });
 
     if (index == 1) {
+      // Tetap di halaman Riwayat Nilai
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const RiwayatNilaiPage()),
       );
-    }
-    if (index == 0) {
+    } else if (index == 0) {
+      // Navigasi ke HomePage
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => HomePage()),
+      );
+    } else if (index == 2) {
+      // Navigasi ke ProfilPage
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                ProfilPage()), // Pastikan ProfilPage ada di profil.dart
       );
     }
   }

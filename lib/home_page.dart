@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'riwayat_nilai.dart'; // Import your target page
+import 'profil.dart'; // Import your profil page
 
 class HomePage extends StatefulWidget {
   @override
@@ -9,16 +10,23 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
-//Membuat fungsi untuk tombol navigasi yang dibawah ke halaman riwayat_nilai.dart
+  // Membuat fungsi untuk tombol navigasi yang dibawah ke halaman riwayat_nilai.dart dan profil.dart
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
 
     if (index == 1) {
+      // Navigate to RiwayatNilaiPage
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const RiwayatNilaiPage()),
+      );
+    } else if (index == 2) {
+      // Navigate to ProfilPage
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ProfilPage()),
       );
     }
   }
@@ -27,52 +35,45 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(110.0), // Atur tinggi AppBar
+        preferredSize: Size.fromHeight(110.0),
         child: Container(
           decoration: BoxDecoration(
-            color: const Color.fromARGB(
-                255, 255, 255, 255), // Ubah warna latar belakang
-            borderRadius: BorderRadius.vertical(
-                bottom: Radius.circular(15.0)), // Radius bawah
+            color: const Color.fromARGB(255, 255, 255, 255),
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(15.0)),
             boxShadow: [
-              // Menambahkan bayangan
               BoxShadow(
-                color: const Color.fromARGB(255, 176, 176, 176)
-                    .withOpacity(0.10), // Warna bayangan dengan transparansi
-                spreadRadius: 5, // Radius penyebaran bayangan
-                blurRadius: 7, // Radius blur bayangan
-                offset: Offset(0, 3), // Posisi bayangan (x, y)
+                color:
+                    const Color.fromARGB(255, 176, 176, 176).withOpacity(0.10),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 3),
               ),
             ],
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 50.0, vertical: 20.0), // Kurangi padding
+            padding:
+                const EdgeInsets.symmetric(horizontal: 50.0, vertical: 20.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment
-                  .spaceBetween, // Mengatur elemen kiri dan kanan
-              crossAxisAlignment:
-                  CrossAxisAlignment.end, // Rata bawah secara vertikal
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Column(
-                  crossAxisAlignment:
-                      CrossAxisAlignment.start, // Mengatur rata kiri untuk teks
-                  mainAxisAlignment: MainAxisAlignment
-                      .end, // Menempatkan teks di bawah vertikal
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
                       'Hi!',
                       style: TextStyle(
-                        fontSize: 15, // Ukuran font untuk sapaan
-                        color: Colors.grey, // Ubah warna teks menjadi abu-abu
+                        fontSize: 15,
+                        color: Colors.grey,
                       ),
                     ),
                     Text(
                       'Seruan Ndi Jonatan G',
                       style: TextStyle(
-                        fontSize: 18, // Ukuran font untuk nama
-                        fontWeight: FontWeight.bold, // Membuat teks tebal
-                        color: Colors.black, // Warna teks hitam
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
                       ),
                     ),
                   ],
@@ -82,12 +83,12 @@ class _HomePageState extends State<HomePage> {
                     // Tambahkan fungsi aksi untuk ikon profil di sini
                   },
                   child: CircleAvatar(
-                    radius: 15, // Ukuran lingkaran untuk ikon profil
-                    backgroundColor: Colors.black, // Warna latar belakang ikon
+                    radius: 15,
+                    backgroundColor: Colors.black,
                     child: Icon(
                       Icons.person,
-                      size: 25, // Ukuran ikon profil
-                      color: Colors.white, // Warna ikon profil
+                      size: 25,
+                      color: Colors.white,
                     ),
                   ),
                 ),
@@ -96,23 +97,18 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      // Ubah warna latar belakang di sini
-      backgroundColor: const Color.fromARGB(
-          255, 155, 246, 181), // Warna latar belakang hijau
+      backgroundColor: const Color.fromARGB(255, 155, 246, 181),
       body: Padding(
-        padding: const EdgeInsets.all(20.0), // Kurangi padding
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            SizedBox(height: 50), // Atur jarak vertikal lebih proporsional
-
-            // Materi Button
+            SizedBox(height: 50),
             ElevatedButton(
               onPressed: () {
                 // Handle Materi action here
               },
               child: Padding(
-                padding: EdgeInsets.all(
-                    30.0), // Padding keseluruhan di sekitar konten
+                padding: EdgeInsets.all(30.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -124,42 +120,37 @@ class _HomePageState extends State<HomePage> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(width: 10), // Jarak antara teks dan gambar
+                    SizedBox(width: 10),
                     Image.asset(
-                      'assets/images/mateributton.png', // Path gambar di folder assets
-                      width: 120, // Ukuran lebar gambar yang lebih wajar
-                      height: 120, // Ukuran tinggi gambar yang lebih wajar
-                      fit: BoxFit.cover, // Menyesuaikan gambar dengan kotaknya
+                      'assets/images/mateributton.png',
+                      width: 120,
+                      height: 120,
+                      fit: BoxFit.cover,
                     ),
                   ],
                 ),
               ),
               style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 180), // Ukuran tombol
-                backgroundColor:
-                    const Color.fromARGB(255, 255, 255, 255), // Warna tombol
+                minimumSize: Size(double.infinity, 180),
+                backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30), // Radius sudut kiri atas
-                    topRight: Radius.circular(30), // Radius sudut kanan atas
-                    bottomLeft: Radius.circular(30), // Radius sudut kiri bawah
-                    bottomRight: Radius.circular(0), // Radius sudut kanan bawah
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(0),
                   ),
                 ),
-                elevation: 5, // Efek bayangan
+                elevation: 5,
               ),
             ),
-            SizedBox(
-                height: 60), // Jarak vertikal antara tombol dan elemen lainnya
-
-            // Pengaturan Button
+            SizedBox(height: 60),
             ElevatedButton(
               onPressed: () {
-                // Handle Materi action here
+                // Handle Pengaturan action here
               },
               child: Padding(
-                padding: EdgeInsets.all(
-                    15.0), // Padding keseluruhan di sekitar konten
+                padding: EdgeInsets.all(15.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -171,53 +162,46 @@ class _HomePageState extends State<HomePage> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(width: 10), // Jarak antara teks dan gambar
+                    SizedBox(width: 10),
                     Image.asset(
-                      'assets/images/pengaturanbutton.png', // Path gambar di folder assets
-                      width: 100, // Ukuran lebar gambar yang lebih wajar
-                      height: 100, // Ukuran tinggi gambar yang lebih wajar
-                      fit: BoxFit.cover, // Menyesuaikan gambar dengan kotaknya
+                      'assets/images/pengaturanbutton.png',
+                      width: 100,
+                      height: 100,
+                      fit: BoxFit.cover,
                     ),
                   ],
                 ),
               ),
               style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 180), // Ukuran tombol
-                backgroundColor:
-                    const Color.fromARGB(255, 255, 255, 255), // Warna tombol
+                minimumSize: Size(double.infinity, 180),
+                backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(00), // Radius sudut kiri atas
-                    topRight: Radius.circular(30), // Radius sudut kanan atas
-                    bottomLeft: Radius.circular(30), // Radius sudut kiri bawah
-                    bottomRight:
-                        Radius.circular(30), // Radius sudut kanan bawah
+                    topLeft: Radius.circular(0),
+                    topRight: Radius.circular(30),
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30),
                   ),
                 ),
-                elevation: 5, // Efek bayangan
+                elevation: 5,
               ),
             ),
-            SizedBox(
-                height: 40), // Jarak vertikal antara tombol dan elemen lainnya
+            SizedBox(height: 40),
           ],
         ),
       ),
-
       bottomNavigationBar: ClipRRect(
-        borderRadius:
-            BorderRadius.vertical(top: Radius.circular(15)), // Atur radius
+        borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
         child: Container(
-          height: 75, // Atur tinggi sesuai kebutuhan
+          height: 75,
           decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                color: Colors.grey
-                    .withOpacity(0.5), // Warna bayangan dengan transparansi
-                spreadRadius: 5, // Radius penyebaran bayangan
-                blurRadius: 7, // Radius blur bayangan
-                offset: Offset(
-                    0, -3), // Bayangan muncul di atas, jadi offset negatif
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, -3),
               ),
             ],
           ),
