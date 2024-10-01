@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -172,21 +173,35 @@ class HomePage extends StatelessWidget {
             ],
           ),
           child: BottomNavigationBar(
-            items: [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.star),
-                label: 'Nilai',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Profil',
-              ),
-            ],
-          ),
+  items: [
+    BottomNavigationBarItem(
+      icon: ImageIcon(
+        AssetImage('assets/images/home.png'),
+        size: 25.0,  // Atur ukuran ikon
+        color: const Color.fromARGB(255, 165, 165, 165),  // Atur warna ikon
+      ),
+      label: 'Home',
+    ),
+    BottomNavigationBarItem(
+      icon: ImageIcon(
+        AssetImage('assets/images/nilai.png'),
+        size: 25.0,  // Atur ukuran ikon
+        color: const Color.fromARGB(255, 165, 165, 165),  // Atur warna ikon
+      ),
+      label: 'Nilai',
+    ),
+    BottomNavigationBarItem(
+      icon: ImageIcon(
+        AssetImage('assets/images/profil.png'),
+        size: 25.0,  // Atur ukuran ikon
+        color: const Color.fromARGB(255, 165, 165, 165),  // Atur warna ikon
+      ),
+      label: 'Profil',
+    ),
+  ],
+),
+
+
         ),
       ),
     );
