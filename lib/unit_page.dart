@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+void main() {
+  runApp(const MyApp());
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -16,32 +20,45 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MateriScreen extends StatelessWidget {
+class MateriScreen extends StatefulWidget {
   const MateriScreen({super.key});
+
+  @override
+  _MateriScreenState createState() => _MateriScreenState();
+}
+
+class _MateriScreenState extends State<MateriScreen> {
+  String searchQuery = ''; // Untuk menyimpan teks pencarian
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size(120,55),
+        preferredSize: const Size(120, 55),
         child: AppBar(
-        title: const Text('Kembali'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            // Aksi ketika tombol kembali ditekan
-          },
+          title: const Text('Kembali'),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          backgroundColor: const Color.fromARGB(255, 254, 253, 253),
+          elevation: 0,
+          foregroundColor: Colors.black,
         ),
-        backgroundColor: const Color.fromARGB(255, 254, 253, 253),
-        elevation: 0,
-        foregroundColor: Colors.black,
-      ),
       ),
       body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(6.0),
             child: TextField(
+              onChanged: (value) {
+                // Mengubah teks pencarian
+                setState(() {
+                  searchQuery = value;
+                });
+              },
               decoration: InputDecoration(
                 filled: true,
                 fillColor: Colors.white,
@@ -82,7 +99,7 @@ class MateriScreen extends StatelessWidget {
                   title: 'Video 2',
                   subtitle: 'XX September',
                 ),
-                 MateriTile(
+                MateriTile(
                   icon: Icons.videocam,
                   title: 'Video 3',
                   subtitle: 'XX Oktober',
@@ -107,7 +124,7 @@ class MateriScreen extends StatelessWidget {
           ),
         ],
       ),
-      backgroundColor: Colors.green.shade100, // Light green background
+      backgroundColor: Colors.green.shade100, // Warna latar belakang hijau muda
     );
   }
 }
@@ -134,7 +151,10 @@ class MateriTile extends StatelessWidget {
           title: Text(title),
           subtitle: Text(subtitle),
           onTap: () {
-            // Aksi ketika tile ditekan
+            // Tampilkan SnackBar ketika item ditekan
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('$title')),
+            );
           },
         ),
       ),
