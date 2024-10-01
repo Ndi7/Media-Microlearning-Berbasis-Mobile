@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -18,45 +20,47 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Welcome Text
-            Text(
+            const Text(
               'Selamat Datang kembali!',
               style: TextStyle(
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
 
             // Placeholder Image menggunakan Image.asset
             Image.asset(
-              'assets/images/login.jpeg',  // Path gambar dari aset lokal
-              height: 300,  // Atur tinggi gambar
+              'assets/images/login.jpeg', // Path gambar dari aset lokal
+              height: 300, // Atur tinggi gambar
             ),
-            SizedBox(height: 1),  // Ruang antara elemen
+            const SizedBox(height: 1), // Ruang antara elemen
 
             // Email Field
             SizedBox(
-              width: 350,  // Tentukan lebar kolom TextField
+              width: 350, // Tentukan lebar kolom TextField
               child: TextField(
                 decoration: InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(40),  // Mengatur radius sudut
+                    borderRadius:
+                        BorderRadius.circular(40), // Mengatur radius sudut
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
 
             // Password Field
             SizedBox(
-              width: 350,  // Tentukan lebar kolom TextField
+              width: 350, // Tentukan lebar kolom TextField
               child: TextField(
                 obscureText: _obscureText,
                 decoration: InputDecoration(
                   labelText: 'Sandi',
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(40),  // Mengatur radius sudut
+                    borderRadius:
+                        BorderRadius.circular(40), // Mengatur radius sudut
                   ),
                   suffixIcon: IconButton(
                     icon: Icon(
@@ -71,17 +75,19 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
 
             // Forgot Password
             Align(
-              alignment: FractionalOffset(0.8, 0.0), // Geser ke kanan (0.1) dan tetap di tengah vertikal (0.0)
+              alignment: const FractionalOffset(0.8,
+                  0.0), // Geser ke kanan (0.1) dan tetap di tengah vertikal (0.0)
               child: TextButton(
                 onPressed: () {
                   // Handle forgot password action here
                 },
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 3.0), // Adjust padding to lift underline
+                child: const Padding(
+                  padding: EdgeInsets.only(
+                      bottom: 3.0), // Adjust padding to lift underline
                   child: Text(
                     'Lupa Sandi?',
                     style: TextStyle(
@@ -92,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             // Login Button
             ElevatedButton(
@@ -100,12 +106,12 @@ class _LoginPageState extends State<LoginPage> {
                 // Navigate to HomePage after successful login
                 Navigator.pushReplacementNamed(context, '/home');
               },
-              child: Text('Masuk'),
               style: ElevatedButton.styleFrom(
-                minimumSize: Size(100, 50),
+                minimumSize: const Size(100, 50),
                 backgroundColor: Colors.blue, // Warna background tombol
                 foregroundColor: Colors.white, // Warna teks (foreground) tombol
               ),
+              child: Text('Masuk'),
             ),
           ],
         ),
