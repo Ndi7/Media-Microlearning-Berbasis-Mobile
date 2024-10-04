@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'login_page.dart';
 import 'home_page.dart';
+import 'Kelas.dart';
 import 'unit_page.dart';
 import 'ubahnohp_page.dart';
 import 'riwayat_nilai.dart';
 import 'profil.dart';
+import 'Tambah_Materi.dart';
 
 void main() {
   runApp(MyApp());
