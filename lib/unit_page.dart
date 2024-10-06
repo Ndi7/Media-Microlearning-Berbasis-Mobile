@@ -153,7 +153,7 @@ class MateriTile extends StatelessWidget {
           onTap: () {
             // Tampilkan SnackBar ketika item ditekan
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('$title')),
+              SnackBar(content: Text(title)),
             );
           },
         ),

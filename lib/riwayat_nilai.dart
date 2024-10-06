@@ -28,7 +28,7 @@ class _RiwayatNilaiPageState extends State<RiwayatNilaiPage> {
       // Navigasi ke HomePage
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => const HomePage()),
       );
     } else if (index == 2) {
       // Navigasi ke ProfilPage

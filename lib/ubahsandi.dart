@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: UbahSandipage(),
     );
@@ -15,6 +17,8 @@ class MyApp extends StatelessWidget {
 }
 
 class UbahSandipage extends StatefulWidget {
+  const UbahSandipage({super.key});
+
   @override
   _UbahSandipageState createState() => _UbahSandipageState();
 }
@@ -22,17 +26,18 @@ class UbahSandipage extends StatefulWidget {
 class _UbahSandipageState extends State<UbahSandipage> {
   bool _isPasswordVisible1 = false;
   bool _isPasswordVisible2 = false;
-  TextEditingController _passwordController = TextEditingController();
-  TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200], // Warna latar belakang
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(100.0), // Atur tinggi AppBar
+        preferredSize: const Size.fromHeight(100.0), // Atur tinggi AppBar
         child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Color(0xFF92E3A9), // Warna latar belakang
             borderRadius: BorderRadius.vertical(
               bottom: Radius.circular(9.0), // Atur radius bawah
@@ -48,14 +53,14 @@ class _UbahSandipageState extends State<UbahSandipage> {
                 Row(
                   children: [
                     IconButton(
-                      color: Color(0xFF000000),
-                      icon: Icon(Icons.arrow_back),
+                      color: const Color(0xFF000000),
+                      icon: const Icon(Icons.arrow_back),
                       onPressed: () {
                         Navigator.pop(context);
                       },
                     ),
-                    SizedBox(width: 0.5), // Jarak antara ikon dan teks
-                    Text(
+                    const SizedBox(width: 0.5), // Jarak antara ikon dan teks
+                    const Text(
                       'Pengaturan Akun',
                       style: TextStyle(
                         fontSize: 20, // Ukuran font
@@ -102,7 +107,7 @@ class _UbahSandipageState extends State<UbahSandipage> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             // Input Konfirmasi Sandi
             TextField(
               controller: _confirmPasswordController,
@@ -129,7 +134,7 @@ class _UbahSandipageState extends State<UbahSandipage> {
                 ),
               ),
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
             Row(
               mainAxisAlignment:
                   MainAxisAlignment.end, // Agar tombol berada di kanan
@@ -138,7 +143,8 @@ class _UbahSandipageState extends State<UbahSandipage> {
                 TextButton(
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.grey[300],
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
@@ -146,15 +152,17 @@ class _UbahSandipageState extends State<UbahSandipage> {
                   onPressed: () {
                     // Aksi untuk membatalkan perubahan
                   },
-                  child: Text('Batal', style: TextStyle(color: Colors.black)),
+                  child: const Text('Batal',
+                      style: TextStyle(color: Colors.black)),
                 ),
-                SizedBox(
+                const SizedBox(
                     width: 10), // Memberikan jarak antara tombol Batal dan Ubah
                 // Tombol Ubah
                 TextButton(
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.blue,
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
@@ -162,7 +170,8 @@ class _UbahSandipageState extends State<UbahSandipage> {
                   onPressed: () {
                     // Aksi untuk menyimpan perubahan
                   },
-                  child: Text('Ubah', style: TextStyle(color: Colors.white)),
+                  child:
+                      const Text('Ubah', style: TextStyle(color: Colors.white)),
                 ),
               ],
             ),

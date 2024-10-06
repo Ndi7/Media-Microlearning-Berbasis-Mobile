@@ -9,7 +9,7 @@ import 'profil.dart';
 import 'Tambah_Materi.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -23,9 +23,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
+      home: const LoginPage(),
       routes: {
-        '/home': (context) => HomePage(),
+        '/home': (context) => const HomePage(),
       },
     );
   }
