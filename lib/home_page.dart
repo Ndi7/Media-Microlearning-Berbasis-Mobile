@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:media_learning_berbasis_mobile/bab_page.dart';
 import 'riwayat_nilai.dart'; // Import your target page
 import 'profil.dart'; // Import your profil page
 
@@ -105,7 +106,12 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 50),
             ElevatedButton(
               onPressed: () {
-                // Handle Materi action here
+               if (index == 1) {
+      // Navigate to BabPage
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const BabPage()),
+      ); // Handle Materi action here
               },
               child: Padding(
                 padding: EdgeInsets.all(30.0),

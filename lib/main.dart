@@ -5,6 +5,7 @@ import 'unit_page.dart';
 import 'ubahnohp_page.dart';
 import 'riwayat_nilai.dart';
 import 'profil.dart';
+import 'bab_page.dart';
 
 void main() {
   runApp(MyApp());
