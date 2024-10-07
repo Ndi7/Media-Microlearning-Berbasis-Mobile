@@ -111,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                 backgroundColor: Colors.blue, // Warna background tombol
                 foregroundColor: Colors.white, // Warna teks (foreground) tombol
               ),
-              child: Text('Masuk'),
+              child: const Text('Masuk'),
             ),
           ],
         ),

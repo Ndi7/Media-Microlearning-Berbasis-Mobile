@@ -4,6 +4,8 @@ import 'riwayat_nilai.dart'; // Import your target page
 import 'profil.dart'; // Import your profil page
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -36,18 +38,19 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(110.0),
+        preferredSize: const Size.fromHeight(110.0),
         child: Container(
           decoration: BoxDecoration(
             color: const Color.fromARGB(255, 255, 255, 255),
-            borderRadius: BorderRadius.vertical(bottom: Radius.circular(15.0)),
+            borderRadius:
+                const BorderRadius.vertical(bottom: Radius.circular(15.0)),
             boxShadow: [
               BoxShadow(
                 color:
                     const Color.fromARGB(255, 176, 176, 176).withOpacity(0.10),
                 spreadRadius: 5,
                 blurRadius: 7,
-                offset: Offset(0, 3),
+                offset: const Offset(0, 3),
               ),
             ],
           ),
@@ -58,7 +61,7 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Column(
+                const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -83,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                   onTap: () {
                     // Tambahkan fungsi aksi untuk ikon profil di sini
                   },
-                  child: CircleAvatar(
+                  child: const CircleAvatar(
                     radius: 15,
                     backgroundColor: Colors.black,
                     child: Icon(
@@ -103,7 +106,7 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             ElevatedButton(
               onPressed: () {
                if (index == 1) {
@@ -113,33 +116,10 @@ class _HomePageState extends State<HomePage> {
         MaterialPageRoute(builder: (context) => const BabPage()),
       ); // Handle Materi action here
               },
-              child: Padding(
-                padding: EdgeInsets.all(30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'MATERI',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    Image.asset(
-                      'assets/images/mateributton.png',
-                      width: 120,
-                      height: 120,
-                      fit: BoxFit.cover,
-                    ),
-                  ],
-                ),
-              ),
               style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 180),
+                minimumSize: const Size(double.infinity, 180),
                 backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-                shape: RoundedRectangleBorder(
+                shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30),
@@ -149,39 +129,39 @@ class _HomePageState extends State<HomePage> {
                 ),
                 elevation: 5,
               ),
-            ),
-            SizedBox(height: 60),
-            ElevatedButton(
-              onPressed: () {
-                // Handle Pengaturan action here
-              },
               child: Padding(
-                padding: EdgeInsets.all(15.0),
+                padding: const EdgeInsets.all(30.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'PENGATURAN',
+                    const Text(
+                      'MATERI',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Image.asset(
-                      'assets/images/pengaturanbutton.png',
-                      width: 100,
-                      height: 100,
+                      'assets/images/mateributton.png',
+                      width: 120,
+                      height: 120,
                       fit: BoxFit.cover,
                     ),
                   ],
                 ),
               ),
+            ),
+            const SizedBox(height: 60),
+            ElevatedButton(
+              onPressed: () {
+                // Handle Pengaturan action here
+              },
               style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 180),
+                minimumSize: const Size(double.infinity, 180),
                 backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-                shape: RoundedRectangleBorder(
+                shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(0),
                     topRight: Radius.circular(30),
@@ -191,13 +171,36 @@ class _HomePageState extends State<HomePage> {
                 ),
                 elevation: 5,
               ),
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'PENGATURAN',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Image.asset(
+                      'assets/images/pengaturanbutton.png',
+                      width: 100,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                  ],
+                ),
+              ),
             ),
-            SizedBox(height: 40),
+            const SizedBox(height: 40),
           ],
         ),
       ),
       bottomNavigationBar: ClipRRect(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
         child: Container(
           height: 75,
           decoration: BoxDecoration(
@@ -207,12 +210,12 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.grey.withOpacity(0.5),
                 spreadRadius: 5,
                 blurRadius: 7,
-                offset: Offset(0, -3),
+                offset: const Offset(0, -3),
               ),
             ],
           ),
           child: BottomNavigationBar(
-            items: [
+            items: const [
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),
                 label: 'Home',

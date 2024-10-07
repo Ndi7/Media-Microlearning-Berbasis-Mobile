@@ -9,11 +9,11 @@ class GantiNoHp extends StatelessWidget {
         appBar: PreferredSize(
             preferredSize: const Size(120, 65),
             child: AppBar(
-              title: const Text('Ubah No Telepon'),
+              title: const Text('Pengaturan Akun'),
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back),
                 onPressed: () {
-                  // Aksi ketika tombol kembali ditekan
+                  Navigator.pop(context);
                 },
               ),
               backgroundColor: const Color.fromARGB(255, 118, 251, 153),
