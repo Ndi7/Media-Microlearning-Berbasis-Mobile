@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'login_page.dart';
 import 'home_page.dart';
+import 'Kelas.dart';
 import 'unit_page.dart';
 import 'ubahnohp_page.dart';
 import 'riwayat_nilai.dart';
 import 'profil.dart';
+<<<<<<< HEAD
+import 'bab_page.dart';
+=======
+import 'Tambah_Materi.dart';
+>>>>>>> 59b8da1c20885cb393c7606bfdc3aa6d8934196a
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -21,9 +27,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
+      home: const LoginPage(),
       routes: {
-        '/home': (context) => HomePage(),
+        '/home': (context) => const HomePage(),
       },
     );
   }
