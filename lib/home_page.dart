@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'riwayat_nilai.dart'; // Import your target page
 import 'profil.dart'; // Import your profil page
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePage extends StatefulWidget {
   @override
