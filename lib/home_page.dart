@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:media_learning_berbasis_mobile/bab_page.dart';
+import 'BabPage.dart';
 import 'riwayat_nilai.dart'; // Import your target page
 import 'profil.dart'; // Import your profil page
+import 'Kelas.dart'; // Import your profil page
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,7 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
-  // Membuat fungsi untuk tombol navigasi yang dibawah ke halaman riwayat_nilai.dart dan profil.dart
+  // Fungsi untuk tombol navigasi ke halaman riwayat_nilai.dart dan profil.dart
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -110,12 +111,11 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 50),
             ElevatedButton(
               onPressed: () {
-               if (index == 1) {
-      // Navigate to BabPage
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const BabPage()),
-      ); // Handle Materi action here
+                // Navigate to BabPage
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const KelasPage()),
+                );
               },
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(double.infinity, 180),

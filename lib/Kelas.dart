@@ -43,36 +43,36 @@ class _KelasPageState extends State<KelasPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             SizedBox(
-              height: 120, // Tinggi kotak diperbesar
+              height: 120,
               child: KelasButton(
-                text: 'Kelas 10',
+                text: 'Biologi Kelas 10',
                 onPressed: () {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Kelas 10 dipilih')),
+                    const SnackBar(content: Text('Biologi Kelas 10 dipilih')),
                   );
                 },
               ),
             ),
             const SizedBox(height: 17),
             SizedBox(
-              height: 120, // Tinggi kotak diperbesar
+              height: 120,
               child: KelasButton(
-                text: 'Kelas 11',
+                text: 'Biologi Kelas 11',
                 onPressed: () {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Kelas 11 dipilih')),
+                    const SnackBar(content: Text('Biologi Kelas 11 dipilih')),
                   );
                 },
               ),
             ),
             const SizedBox(height: 17),
             SizedBox(
-              height: 120, // Tinggi kotak diperbesar
+              height: 120,
               child: KelasButton(
-                text: 'Kelas 12',
+                text: 'Biologi Kelas 12',
                 onPressed: () {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Kelas 12 dipilih')),
+                    const SnackBar(content: Text('Biologi Kelas 12 dipilih')),
                   );
                 },
               ),
@@ -94,52 +94,24 @@ class KelasButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.zero, // Menghilangkan padding default
+        padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15), // Sudut yang lebih bulat
+          borderRadius: BorderRadius.circular(15),
         ),
+        backgroundColor: Colors.white, // Background putih seperti pada gambar
+        shadowColor: Colors.grey.withOpacity(0.5), // Bayangan lembut
+        elevation: 3, // Efek bayangan
       ),
       onPressed: onPressed,
-      child: Ink(
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [
-              Color.fromARGB(255, 102, 204, 255),
-              Color.fromARGB(255, 102, 204, 255)
-            ], // Gradasi kuning
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: const Color.fromARGB(255, 251, 250, 250).withOpacity(0.5),
-              spreadRadius: 5,
-              blurRadius: 7,
-              offset: const Offset(0, 4), // Posisi bayangan
-            ),
-          ],
-        ),
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 20.0),
-          alignment: Alignment.center,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(
-                Icons.school,
-                color: Color.fromARGB(255, 4, 4, 4),
-              ),
-              const SizedBox(width: 10),
-              Text(
-                text,
-                style: const TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 2, 2, 2),
-                ),
-              ),
-            ],
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 20.0),
+        alignment: Alignment.center,
+        child: Text(
+          text,
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.black, // Warna teks hitam
           ),
         ),
       ),

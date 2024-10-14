@@ -6,11 +6,8 @@ import 'unit_page.dart';
 import 'ubahnohp_page.dart';
 import 'riwayat_nilai.dart';
 import 'profil.dart';
-<<<<<<< HEAD
-import 'bab_page.dart';
-=======
-import 'Tambah_Materi.dart';
->>>>>>> 59b8da1c20885cb393c7606bfdc3aa6d8934196a
+import 'BabPage.dart';
+
 
 void main() {
   runApp(const MyApp());
