@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class BabPage extends StatefulWidget {
-  const BabPage({super.key});
+  final String className;
+
+  const BabPage({super.key, required this.className});
 
   @override
   _BabPageState createState() => _BabPageState();
@@ -17,18 +19,10 @@ class _BabPageState extends State<BabPage> {
       _selectedIndex = index;
     });
 
-    Widget page;
-    if (index == 0) {
-      page = BabPage();
-    } else if (index == 2) {
-      page = BabPage(); //
-    } else {
-      page = const BabPage(); // Stay on BabPage
-    }
-
+    // Navigasi ke halaman yang sesuai
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => page),
+      MaterialPageRoute(builder: (context) => BabPage(className: widget.className)),
     );
   }
 
@@ -37,11 +31,11 @@ class _BabPageState extends State<BabPage> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Padding(
-          padding: EdgeInsets.only(top: 30.0, left: 30.0),
+        title: Padding(
+          padding: const EdgeInsets.only(top: 30.0, left: 30.0),
           child: Text(
-            'Bab Page',
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            widget.className,
+            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
         ),
         foregroundColor: Colors.black,
@@ -104,16 +98,16 @@ class _BabPageState extends State<BabPage> {
         ],
       ),
       bottomNavigationBar: ClipRRect(
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
         child: Container(
-          height: 50,
+          height: 75,
           decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFFFFFFFF).withOpacity(0.5),
-                spreadRadius: 3,
-                blurRadius: 2,
+                color: Colors.grey.withOpacity(0.5),
+                spreadRadius: 5,
+                blurRadius: 7,
                 offset: const Offset(0, -3),
               ),
             ],
@@ -133,6 +127,9 @@ class _BabPageState extends State<BabPage> {
                 label: 'Profil',
               ),
             ],
+            currentIndex: _selectedIndex,
+            selectedItemColor: Colors.amber[800],
+            onTap: _onItemTapped,
           ),
         ),
       ),
