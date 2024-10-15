@@ -33,25 +33,22 @@ class _MateriScreenState extends State<MateriScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size(120, 55),
-        child: AppBar(
-          title: const Text('Kembali'),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-          backgroundColor: const Color.fromARGB(255, 254, 253, 253),
-          elevation: 0,
-          foregroundColor: Colors.black,
+      appBar: AppBar(
+        title: const Text('Kembali'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
+        backgroundColor: const Color.fromARGB(255, 254, 253, 253),
+        elevation: 0,
+        foregroundColor: Colors.black,
       ),
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(6.0),
+            padding: const EdgeInsets.all(16.0),
             child: TextField(
               onChanged: (value) {
                 // Mengubah teks pencarian
@@ -65,7 +62,7 @@ class _MateriScreenState extends State<MateriScreen> {
                 hintText: 'Cari Materi Pelajaran',
                 prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(1),
+                  borderRadius: BorderRadius.circular(5),
                   borderSide: BorderSide.none,
                 ),
               ),
@@ -73,52 +70,17 @@ class _MateriScreenState extends State<MateriScreen> {
           ),
           Expanded(
             child: ListView(
-              children: const [
-                MateriTile(
-                  icon: Icons.book,
-                  title: 'Materi 1 - Biologi',
-                  subtitle: '22 September',
-                ),
-                MateriTile(
-                  icon: Icons.book,
-                  title: 'Materi 2',
-                  subtitle: 'XX September',
-                ),
-                MateriTile(
-                  icon: Icons.book,
-                  title: 'Materi 3',
-                  subtitle: 'XX September',
-                ),
-                MateriTile(
-                  icon: Icons.videocam,
-                  title: 'Video 1 - Biologi',
-                  subtitle: 'XX September',
-                ),
-                MateriTile(
-                  icon: Icons.videocam,
-                  title: 'Video 2',
-                  subtitle: 'XX September',
-                ),
-                MateriTile(
-                  icon: Icons.videocam,
-                  title: 'Video 3',
-                  subtitle: 'XX Oktober',
-                ),
-                MateriTile(
-                  icon: Icons.quiz,
-                  title: 'Kuis 1 - Biologi',
-                  subtitle: 'XX September',
-                ),
-                MateriTile(
-                  icon: Icons.quiz,
-                  title: 'Kuis 2',
-                  subtitle: 'XX September',
-                ),
-                MateriTile(
-                  icon: Icons.quiz,
-                  title: 'Kuis 3',
-                  subtitle: 'XX September',
-                ),
+              padding: const EdgeInsets.all(8.0),
+              children: [
+                _buildMaterialCard('Materi 1 - Biologi', '22 September', Icons.book),
+                _buildMaterialCard('Materi 2', 'XX September', Icons.book),
+                _buildMaterialCard('Materi 3', 'XX September', Icons.book),
+                _buildMaterialCard('Video 1 - Biologi', 'XX September', Icons.videocam),
+                _buildMaterialCard('Video 2', 'XX September', Icons.videocam),
+                _buildMaterialCard('Video 3', 'XX Oktober', Icons.videocam),
+                _buildMaterialCard('Kuis 1 - Biologi', 'XX September', Icons.quiz),
+                _buildMaterialCard('Kuis 2', 'XX September', Icons.quiz),
+                _buildMaterialCard('Kuis 3', 'XX September', Icons.quiz),
               ],
             ),
           ),
@@ -127,36 +89,27 @@ class _MateriScreenState extends State<MateriScreen> {
       backgroundColor: Colors.green.shade100, // Warna latar belakang hijau muda
     );
   }
-}
 
-class MateriTile extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String subtitle;
+  Widget _buildMaterialCard(String title, String date, IconData icon) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 5.0),
+      child: ListTile(
+        leading: Icon(icon, size: 30),
+        title: Text(title),
+        subtitle: Text(date),
+        trailing: const Icon(Icons.chevron_right),
+        onTap: () {
+          // Tampilkan SnackBar ketika item ditekan
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Anda memilih: $title')),
+          );
 
-  const MateriTile({
-    super.key,
-    required this.icon,
-    required this.title,
-    required this.subtitle,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-      child: Card(
-        child: ListTile(
-          leading: Icon(icon, size: 30),
-          title: Text(title),
-          subtitle: Text(subtitle),
-          onTap: () {
-            // Tampilkan SnackBar ketika item ditekan
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(title)),
-            );
-          },
-        ),
+          // Jika ingin navigasi ke halaman video, tambahkan logika navigasi di sini
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => VideoPage(title: title)),
+          // );
+        },
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'unit_page.dart'; // Import the second code file
 
 class BabPage extends StatefulWidget {
   final String className;
@@ -23,6 +24,15 @@ class _BabPageState extends State<BabPage> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => BabPage(className: widget.className)),
+    );
+  }
+
+  void _navigateToMateriScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const MateriScreen(), // Navigate to MateriScreen
+      ),
     );
   }
 
@@ -76,6 +86,7 @@ class _BabPageState extends State<BabPage> {
               itemCount: 10,
               itemBuilder: (context, index) {
                 return InkWell(
+                  onTap: _navigateToMateriScreen, // Navigate to MateriScreen when tapped
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
