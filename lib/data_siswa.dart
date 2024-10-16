@@ -39,20 +39,28 @@ class DataSiswaPage extends StatelessWidget {
             const ProfileInfo(label: 'Agama', value: 'Kristen'),
             const ProfileInfo(label: 'Alamat', value: 'Simp. Dam Mukakuning'),
             const SizedBox(height: 20),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white,
-                backgroundColor: Colors.red,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.red,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 10),
+                    ),
+                    onPressed: () {
+                      //  fungsi hapus siswa di sini
+                    },
+                    child: const Text('Hapus Siswa'),
+                  ),
                 ),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-              ),
-              onPressed: () {
-                //  fungsi hapus siswa di sini
-              },
-              child: const Text('Hapus Siswa'),
+              ],
             ),
             const SizedBox(height: 20),
           ],
