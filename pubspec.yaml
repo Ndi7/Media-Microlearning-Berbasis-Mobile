@@ -31,7 +31,12 @@ dependencies:
   flutter:
     sdk: flutter
   font_awesome_flutter: ^10.0.0
+ # Additional packages
+  file_picker: ^5.0.0   # For selecting files from device
+  url_launcher: ^6.0.9  # For launching URLs
+
   cupertino_icons: ^1.0.8
+
 
 dev_dependencies:
   flutter_test:
