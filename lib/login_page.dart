@@ -40,14 +40,18 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(
               width: 350, // Tentukan lebar kolom TextField
               child: TextField(
+                obscureText: _obscureText,
                 decoration: InputDecoration(
                   labelText: 'Email',
+                  filled: true,
+                  fillColor: Colors.grey[100], // Latar belakang abu-abu terang
                   border: OutlineInputBorder(
-                    borderRadius:
-                        BorderRadius.circular(40), // Mengatur radius sudut
+                    borderRadius: BorderRadius.circular(50),
+                    borderSide: BorderSide.none, // Menghilangkan border
                   ),
                 ),
               ),
+
             ),
             const SizedBox(height: 10),
 
@@ -58,14 +62,14 @@ class _LoginPageState extends State<LoginPage> {
                 obscureText: _obscureText,
                 decoration: InputDecoration(
                   labelText: 'Sandi',
+                  filled: true,
+                  fillColor: Colors.grey[200], // Latar belakang abu-abu terang
                   border: OutlineInputBorder(
-                    borderRadius:
-                        BorderRadius.circular(40), // Mengatur radius sudut
+                    borderRadius: BorderRadius.circular(50),
+                    borderSide: BorderSide.none, // Menghilangkan border
                   ),
                   suffixIcon: IconButton(
-                    icon: Icon(
-                      _obscureText ? Icons.visibility : Icons.visibility_off,
-                    ),
+                    icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
                     onPressed: () {
                       setState(() {
                         _obscureText = !_obscureText; // Toggle visibility
@@ -74,25 +78,24 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
+
+
             ),
             const SizedBox(height: 10),
 
             // Forgot Password
             Align(
-              alignment: const FractionalOffset(0.8,
-                  0.0), // Geser ke kanan (0.1) dan tetap di tengah vertikal (0.0)
+              alignment: const FractionalOffset(0.8, 0.0),
               child: TextButton(
                 onPressed: () {
-                  // Handle forgot password action here
+                  Navigator.pushNamed(context, '/lupa-sandi'); // Navigate to LupaSandiPage
                 },
                 child: const Padding(
-                  padding: EdgeInsets.only(
-                      bottom: 3.0), // Adjust padding to lift underline
+                  padding: EdgeInsets.only(bottom: 3.0),
                   child: Text(
                     'Lupa Sandi?',
                     style: TextStyle(
-                      color: Colors.blue, // Warna teks biru
-                      // decoration: TextDecoration.underline, // Garis bawah pada teks
+                      color: Colors.blue,
                     ),
                   ),
                 ),

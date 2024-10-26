@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'detail_nilai.dart'; // Pastikan file detail_nilai.dart sudah ada
+import '../detail_nilai.dart'; // Pastikan file detail_nilai.dart sudah ada
 import 'profil.dart'; // Pastikan file profil.dart sudah ada
 
 class RiwayatNilaiPage extends StatelessWidget {

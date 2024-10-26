@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'login_page.dart';
-import 'home_page.dart';
-import 'Kelas.dart';
-import 'unit_page.dart';
-import 'ubahnohp_page.dart';
-import 'riwayat_nilai.dart';
-import 'profil.dart';
-import 'BabPage.dart';
-
+import 'siswa/home_page.dart';
+import 'siswa/Kelas.dart';
+import 'siswa/unit_page.dart';
+import 'siswa/ubahnohp_page.dart';
+import 'siswa/riwayat_nilai.dart';
+import 'siswa/profil.dart';
+import 'siswa/BabPage.dart';
+import 'lupasandi_page.dart'; // Import the LupaSandiPage
 
 void main() {
   runApp(const MyApp());
@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
       home: const LoginPage(),
       routes: {
         '/home': (context) => const HomePage(),
+        '/lupa-sandi': (context) => LupaSandiPage(), // Add route for LupaSandiPage
       },
     );
   }
