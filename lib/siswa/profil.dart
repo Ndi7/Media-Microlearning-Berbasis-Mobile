@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'ubahsandi.dart'; // Pastikan untuk mengimpor halaman Ubah Sandi
 import 'ubahnohp_page.dart'; // Pastikan untuk mengimpor halaman Ubah Nomor HP
+import '../login_page.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -11,6 +14,40 @@ void main() {
 class ProfilPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //panggil token dari login
+    Future<String?> getToken() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      return prefs.getString('token');
+    }
+
+    //fungsi Logout
+    Future<void> logoutUser() async {
+      String? token = await getToken();
+      if (token != null) {
+        final url = Uri.parse('http://10.0.2.2:8000/api/logout');
+        final response = await http.get(
+          url,
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        );
+        if (response.statusCode == 200) {
+          // Navigasi ke halaman login dan hapus token dari `SharedPreferences`
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.remove('token');
+
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => LoginPage()),
+          );
+        } else {
+          print('Logout gagal. Status code: ${response.statusCode}');
+        }
+      } else {
+        print('Token tidak ditemukan');
+      }
+    }
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(100.0), // Atur tinggi AppBar
@@ -111,6 +148,7 @@ class ProfilPage extends StatelessWidget {
               child: TextButton(
                 onPressed: () {
                   // Logika saat klik "Keluar"
+                  logoutUser();
                 },
                 child: Text(
                   'Keluar',

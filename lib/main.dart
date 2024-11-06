@@ -24,10 +24,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const LoginPage(),
+      home: LoginPage(),
       routes: {
         '/home': (context) => const HomePage(),
-        '/lupa-sandi': (context) => LupaSandiPage(), // Add route for LupaSandiPage
+        '/lupa-sandi': (context) =>
+            LupaSandiPage(), // Add route for LupaSandiPage
       },
     );
   }
