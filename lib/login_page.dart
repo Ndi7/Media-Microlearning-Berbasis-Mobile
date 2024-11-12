@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   String errorMessage = ''; // Variabel untuk menyimpan pesan kesalahan
 
   Future<void> loginUser(String email, String password) async {
-    final url = Uri.parse('http://10.0.2.2:8000/api/login');
+    final url = Uri.parse('http://127.0.0.1:8000/login');
     final response = await http.post(url, body: {
       'email': email,
       'password': password,
