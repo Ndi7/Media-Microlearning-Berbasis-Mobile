@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'Guru_Tambah_Materi.dart';
+import 'package:media_learning_berbasis_mobile/guru/home_page.dart';
+import 'add_materi.dart';
+import 'detail_materi.dart';
 
 void main() {
   runApp(const MyApp());
@@ -75,6 +79,46 @@ class _MateriScreenState extends State<MateriScreen> {
             child: ListView(
               padding: const EdgeInsets.all(8.0),
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        // Menjalankan fungsi add
+                      },
+                      style: ButtonStyle(
+                        backgroundColor:
+                            WidgetStateProperty.all(const Color(0xFF4AB3FF)),
+                        // backgroundColor: Color.fromARGB(12, 3, 3, 3),
+                      ),
+                      child: const Text(
+                        'Edit',
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const MaterialFormPage()));
+                      },
+                      style: ButtonStyle(
+                        backgroundColor:
+                            WidgetStateProperty.all(const Color(0xFF4AB3FF)),
+                        // backgroundColor: Color.fromARGB(12, 3, 3, 3),
+                      ),
+                      child: const Text(
+                        'Add',
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
                 _buildMaterialCard(
                     'Materi 1 - Biologi', '22 September', Icons.book),
                 _buildMaterialCard('Materi 2', 'XX September', Icons.book),
@@ -100,23 +144,19 @@ class _MateriScreenState extends State<MateriScreen> {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 5.0),
       child: ListTile(
-        leading: Icon(icon, size: 30),
-        title: Text(title),
-        subtitle: Text(date),
-        trailing: const Icon(Icons.chevron_right),
-        onTap: () {
-          // Tampilkan SnackBar ketika item ditekan
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Anda memilih: $title')),
-          );
-
-          // Jika ingin navigasi ke halaman video, tambahkan logika navigasi di sini
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => VideoPage(title: title)),
-          // );
-        },
-      ),
+          leading: Icon(icon, size: 30),
+          title: Text(title),
+          subtitle: Text(date),
+          trailing: const Icon(Icons.chevron_right),
+          onTap: () {
+            // Tampilkan SnackBar ketika item ditekan
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const MaterialDetailPage(
+                          materiId: 1,
+                        )));
+          }),
     );
   }
 }

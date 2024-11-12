@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:media_learning_berbasis_mobile/guru/Guru_Tambah_Materi.dart';
 import 'login_page.dart';
 import 'siswa/home_page.dart';
 import 'siswa/Kelas.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomePage(),
         '/lupa-sandi': (context) =>
             LupaSandiPage(), // Add route for LupaSandiPage
+        '/add_materi': (context) => const AddMateri(),
       },
     );
   }

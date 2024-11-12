@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import '../siswa/BabPage.dart';
-import '../siswa/profil.dart'; // Import your profil page
-import '../siswa/Kelas.dart'; // Import your profil page
-import '../siswa/riwayat_nilai.dart'; // Import your profil page
+import 'bab_page.dart';
+import 'profil.dart'; // Import your profil page
+import 'Kelas.dart'; // Import your profil page
+// import '../siswa/riwayat_nilai.dart'; // Import your profil page
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePageGuru extends StatefulWidget {
   const HomePageGuru({super.key});
@@ -23,16 +26,47 @@ class _HomePageState extends State<HomePageGuru> {
 
     if (index == 1) {
       // Navigate to RiwayatNilaiPage
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const RiwayatNilaiPage()),
-      );
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => const RiwayatNilaiPage()),
+      // );
     } else if (index == 2) {
       // Navigate to ProfilPage
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => ProfilPage()),
       );
+    }
+  }
+
+  Future<String> getUserData() async {
+    // Ambil token dari shared preferences
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
+    if (token == null) {
+      throw Exception('Token tidak ditemukan');
+    }
+
+    final url = Uri.parse(
+        'http://10.0.2.2:8000/api/me'); // Ganti dengan URL yang sesuai
+
+    final response = await http.get(
+      url,
+      headers: {
+        'Authorization': 'Bearer $token', // Kirim token di header
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final responseData = jsonDecode(response.body);
+      if (responseData['name'] != null) {
+        return responseData['name']; // Mengembalikan nama pengguna
+      } else {
+        throw Exception('Nama tidak ditemukan');
+      }
+    } else {
+      throw Exception('Gagal mendapatkan data user');
     }
   }
 
@@ -63,25 +97,48 @@ class _HomePageState extends State<HomePageGuru> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                const Column(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(
+                    const Text(
                       'Hi!',
                       style: TextStyle(
                         fontSize: 15,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    Text(
-                      'Guru Home Page',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
                         color: Colors.black,
                       ),
                     ),
+                    FutureBuilder<String>(
+                      future: getUserData(), // Panggil getUserData dengan token
+                      builder: (context, snapshot) {
+                        // Menunggu data
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const CircularProgressIndicator();
+                        }
+
+                        // Jika ada error
+                        else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        }
+
+                        // Jika berhasil mendapatkan data
+                        else if (snapshot.hasData) {
+                          return Text(
+                            snapshot.data ??
+                                'Nama tidak ditemukan', // Menampilkan nama pengguna
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          );
+                        }
+
+                        // Jika tidak ada data
+                        return const Text('Tidak ada data');
+                      },
+                    )
                   ],
                 ),
                 GestureDetector(
