@@ -37,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
         }
         // Cek role dan arahkan ke halaman yang sesuai
         if (role == 'guru') {
-          Navigator.pushReplacement(
+          await Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const HomePageGuru()),
           );
@@ -56,6 +56,13 @@ class _LoginPageState extends State<LoginPage> {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('token', token);
       }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Login Berhasil'),
+          backgroundColor: Colors.green,
+        ),
+      );
     } else {
       // Login gagal, tampilkan pesan kesalahan
       setState(() {
@@ -158,14 +165,6 @@ class _LoginPageState extends State<LoginPage> {
                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
             ),
-            // Menampilkan pesan kesalahan di bawah tombol login
-            if (errorMessage.isNotEmpty) ...[
-              const SizedBox(height: 10),
-              Text(
-                errorMessage,
-                style: const TextStyle(color: Colors.red),
-              ),
-            ],
           ],
         ),
       ),

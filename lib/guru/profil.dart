@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'ubahsandi.dart'; // Pastikan untuk mengimpor halaman Ubah Sandi
-import 'ubahnohp_page.dart'; // Pastikan untuk mengimpor halaman Ubah Nomor HP
+import '../siswa/ubahsandi.dart'; // Pastikan untuk mengimpor halaman Ubah Sandi
+import '../siswa/ubahnohp_page.dart'; // Pastikan untuk mengimpor halaman Ubah Nomor HP
 import '../login_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -151,8 +151,7 @@ class ProfilPage extends StatelessWidget {
                       const SizedBox(height: 2),
                       _buildInfoRow(
                           'Nama', userData['name'] ?? 'Tidak ditemukan'),
-                      _buildInfoRow(
-                          'NIS', userData['nis'] ?? 'Tidak ditemukan'),
+                      _buildInfoRow('NUPTK', userData['nuptk'] ?? 'Tidak ada'),
                       _buildInfoRow('Status', userData['role'] ?? 'Tidak ada'),
                       _buildInfoRow(
                           'Email', userData['email'] ?? 'Tidak ditemukan'),
