@@ -6,11 +6,13 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
-  _LoginPageState createState() => _LoginPageState();
+  LoginPageState createState() => LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool _passwordVisible = false; // Menyimpan status visibility password
@@ -37,11 +39,13 @@ class _LoginPageState extends State<LoginPage> {
         }
         // Cek role dan arahkan ke halaman yang sesuai
         if (role == 'guru') {
+          if (!mounted) return;
           await Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const HomePageGuru()),
           );
         } else {
+          if (!mounted) return;
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const HomePage()),
@@ -52,11 +56,11 @@ class _LoginPageState extends State<LoginPage> {
         ('Login gagal: ${responseData['message']}');
       }
       //fungsi simpan token setelah login gess
-      Future<void> saveToken(String token) async {
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('token', token);
-      }
-
+      // Future<void> saveToken(String token) async {
+      //   SharedPreferences prefs = await SharedPreferences.getInstance();
+      //   await prefs.setString('token', token);
+      // }
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Login Berhasil'),

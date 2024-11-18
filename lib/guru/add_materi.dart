@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'unit_page.dart';
+import 'daftar_materi.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
+import 'add_materi_function.dart';
 
 class MaterialFormPage extends StatefulWidget {
   const MaterialFormPage({super.key});
 
   @override
-  _MaterialFormPageState createState() => _MaterialFormPageState();
+  MaterialFormPageState createState() => MaterialFormPageState();
 }
 
-class _MaterialFormPageState extends State<MaterialFormPage> {
+class MaterialFormPageState extends State<MaterialFormPage> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   File? _selectedFile;
@@ -32,11 +33,6 @@ class _MaterialFormPageState extends State<MaterialFormPage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
 
-    if (token == null) {
-      print("Token tidak ditemukan");
-      return;
-    }
-
     try {
       final response = await http.get(
         Uri.parse('http://10.0.2.2:8000/api/bab'),
@@ -48,7 +44,7 @@ class _MaterialFormPageState extends State<MaterialFormPage> {
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = json.decode(response.body);
-        print("Data Bab dari API: $responseData");
+        // print("Data Bab dari API: $responseData");
 
         // Gunakan key 'bab' sesuai dengan respons API Anda
         if (responseData.containsKey('bab')) {
@@ -64,15 +60,12 @@ class _MaterialFormPageState extends State<MaterialFormPage> {
             isLoading = false;
           });
         } else {
-          print("Key 'bab' tidak ditemukan di respons API.");
           setState(() => isLoading = false);
         }
       } else {
-        print("Gagal mengambil data bab: ${response.statusCode}");
         setState(() => isLoading = false);
       }
     } catch (e) {
-      print("Error: $e");
       setState(() => isLoading = false);
     }
   }
@@ -84,9 +77,7 @@ class _MaterialFormPageState extends State<MaterialFormPage> {
       setState(() {
         _selectedFile = File(result.files.single.path!);
       });
-    } else {
-      print("Tidak ada file yang dipilih.");
-    }
+    } else {}
   }
 
   Future<void> postMateri(BuildContext context) async {
@@ -97,22 +88,15 @@ class _MaterialFormPageState extends State<MaterialFormPage> {
           backgroundColor: Colors.red,
         ),
       );
-      print("Bab belum dipilih.");
       return;
     }
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
 
-    if (token == null) {
-      print("Token tidak ditemukan. Harap login kembali.");
-      return;
-    }
-
     final String title = _titleController.text;
     final String description = _descriptionController.text;
     final url = Uri.parse("http://10.0.2.2:8000/api/materi");
-
     try {
       final request = http.MultipartRequest('POST', url)
         ..headers.addAll({
@@ -131,19 +115,28 @@ class _MaterialFormPageState extends State<MaterialFormPage> {
       final response = await request.send();
 
       if (response.statusCode == 200) {
-        print("Materi berhasil disimpan!");
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Materi berhasil disimpan!'),
             backgroundColor: Colors.green,
           ),
         );
-        _navigateToMateriScreen();
+        // await Future.delayed(const Duration(seconds: 1));
+
+        _titleController.clear(); // Kosongkan judul
+        _descriptionController.clear(); // Kosongkan deskripsi
+        setState(() {
+          _selectedFile = null;
+          selectedChapterId = null;
+        });
+        fetchChapters();
+        // _navigateToMateriScreen();
+        setState(() {});
       } else {
-        print("Gagal menyimpan materi. Status Code: ${response.statusCode}");
+        // print("Gagal menyimpan materi. Status Code: ${response.statusCode}");
       }
     } catch (e) {
-      print("Error: $e");
+      // print("Error: $e");
     }
   }
 
@@ -203,7 +196,6 @@ class _MaterialFormPageState extends State<MaterialFormPage> {
                             onChanged: (int? value) {
                               setState(() {
                                 selectedChapterId = value;
-                                print("Bab yang dipilih: $selectedChapterId");
                               });
                             },
                             underline: Container(),
@@ -309,15 +301,6 @@ class _MaterialFormPageState extends State<MaterialFormPage> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  void _navigateToMateriScreen() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const MateriScreen(),
       ),
     );
   }

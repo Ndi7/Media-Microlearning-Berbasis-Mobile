@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'bab_page.dart';
 import 'profil.dart'; // Import your profil page
-import 'Kelas.dart'; // Import your profil page
+import 'kelas_screen.dart'; // Import your profil page
 // import '../siswa/riwayat_nilai.dart'; // Import your profil page
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'dart:convert';
@@ -12,10 +12,10 @@ class HomePageGuru extends StatefulWidget {
   const HomePageGuru({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePageGuru> {
+class HomePageState extends State<HomePageGuru> {
   int _selectedIndex = 0;
 
   // Fungsi untuk tombol navigasi ke halaman riwayat_nilai.dart dan profil.dart
