@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:media_learning_berbasis_mobile/guru/Guru_Tambah_Materi.dart';
 import 'login_page.dart';
 import 'siswa/home_page.dart';
 import 'siswa/kelas_screen.dart';
-import 'siswa/unit_page.dart';
 import 'siswa/ubahnohp_page.dart';
 import 'siswa/riwayat_nilai.dart';
 import 'siswa/profil.dart';
 import 'siswa/bab_page.dart';
 import 'lupasandi_page.dart'; // Import the LupaSandiPage
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,6 +22,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter App',
       theme: ThemeData(
+        textTheme: GoogleFonts.lexendTextTheme(),
         primarySwatch: Colors.blue,
       ),
       home: LoginPage(),
@@ -30,7 +30,6 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomePage(),
         '/lupa-sandi': (context) =>
             LupaSandiPage(), // Add route for LupaSandiPage
-        '/add_materi': (context) => const AddMateri(),
       },
     );
   }

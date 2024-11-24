@@ -44,7 +44,7 @@ class KelasPageState extends State<KelasPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(110.0),
+        preferredSize: const Size.fromHeight(70.0),
         child: Container(
           decoration: BoxDecoration(
             color: const Color.fromARGB(255, 255, 255, 255),

@@ -124,7 +124,6 @@ class EditMateriFormPageState extends State<EditMateriFormPage> {
             backgroundColor: Colors.green,
           ),
         );
-        Navigator.pop(context, true);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(

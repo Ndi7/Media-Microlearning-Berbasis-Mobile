@@ -128,7 +128,12 @@ class BabPageState extends State<BabPage> {
                   });
                 },
                 icon: const Icon(Icons.add),
-                label: const Text('Tambah Bab'),
+                label: const Text(
+                  'Tambah Bab',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,
@@ -149,7 +154,12 @@ class BabPageState extends State<BabPage> {
                           builder: (context) => const MaterialFormPage()));
                 },
                 icon: const Icon(Icons.add),
-                label: const Text('Tambah Materi'),
+                label: const Text(
+                  'Tambah Materi',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,

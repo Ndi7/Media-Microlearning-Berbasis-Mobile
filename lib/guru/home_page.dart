@@ -214,14 +214,16 @@ class HomePageState extends State<HomePageGuru> {
             const SizedBox(height: 60),
             ElevatedButton(
               onPressed: () {
-                // Handle Pengaturan action here
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ProfilPage()),
+                );
               },
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(double.infinity, 180),
                 backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(0),
                     topRight: Radius.circular(30),
                     bottomLeft: Radius.circular(30),
                     bottomRight: Radius.circular(30),

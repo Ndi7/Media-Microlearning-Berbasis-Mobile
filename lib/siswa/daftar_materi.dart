@@ -48,16 +48,21 @@ class _MateriScreenState extends State<MateriScreen> {
                         builder: (context) =>
                             MateriDetailPage(materi: materi)));
               },
-              child: Card(
-                color: Colors.white,
-                child: ListTile(
-                  title: Text(
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 18),
-                      materi['judul'] ?? 'Judul tidak tersedia'),
-                  subtitle: Text(
-                    materi['deskripsi'] ?? 'Deskripsi tidak tersedia',
-                    maxLines: 3,
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 22, vertical: 4),
+                child: Card(
+                  color: Colors.white,
+                  child: ListTile(
+                    title: Text(
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18),
+                        materi['judul'] ?? 'Judul tidak tersedia'),
+                    subtitle: Text(
+                      materi['deskripsi'] ?? 'Deskripsi tidak tersedia',
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
               ),

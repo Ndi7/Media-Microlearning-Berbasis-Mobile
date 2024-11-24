@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'siswa/home_page.dart'; // Import halaman HomePage
@@ -35,7 +37,7 @@ class LoginPageState extends State<LoginPage> {
           // Menyimpan token menggunakan SharedPreferences
           SharedPreferences prefs = await SharedPreferences.getInstance();
           await prefs.setString('token', token);
-          print("Login berhasil! Token disimpan.");
+          log("Login berhasil! Token disimpan.");
         }
         // Cek role dan arahkan ke halaman yang sesuai
         if (role == 'guru') {
@@ -55,11 +57,6 @@ class LoginPageState extends State<LoginPage> {
         // Tampilkan pesan kesalahan jika ada
         ('Login gagal: ${responseData['message']}');
       }
-      //fungsi simpan token setelah login gess
-      // Future<void> saveToken(String token) async {
-      //   SharedPreferences prefs = await SharedPreferences.getInstance();
-      //   await prefs.setString('token', token);
-      // }
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -69,9 +66,8 @@ class LoginPageState extends State<LoginPage> {
       );
     } else {
       // Login gagal, tampilkan pesan kesalahan
-      setState(() {
-        errorMessage = 'email atau password salah!';
-      });
+      setState(() {});
+      errorMessage = 'email atau password salah!';
       ('Login gagal: ${response.statusCode}');
     }
   }
@@ -80,15 +76,15 @@ class LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('')),
-      body: Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 25),
-              child: Image.asset('assets/images/logo.png'),
-            ),
-            TextField(
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 25),
+            child: Image.asset('assets/images/logo.png'),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: TextField(
               controller: emailController,
               decoration: InputDecoration(
                 labelText: 'Email',
@@ -109,10 +105,17 @@ class LoginPageState extends State<LoginPage> {
                   borderRadius: BorderRadius.circular(50),
                   borderSide: const BorderSide(color: Colors.grey, width: 1),
                 ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(50),
+                  borderSide: const BorderSide(color: Colors.red, width: 1),
+                ),
               ),
             ),
-            const SizedBox(height: 20),
-            TextField(
+          ),
+          const SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 25),
+            child: TextField(
               controller: passwordController,
               obscureText:
                   !_passwordVisible, // Mengatur apakah password disembunyikan atau tidak
@@ -135,6 +138,10 @@ class LoginPageState extends State<LoginPage> {
                   borderRadius: BorderRadius.circular(50),
                   borderSide: const BorderSide(color: Colors.grey, width: 1),
                 ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(50),
+                  borderSide: const BorderSide(color: Colors.red, width: 1),
+                ),
                 suffixIcon: IconButton(
                   icon: Icon(
                     _passwordVisible ? Icons.visibility : Icons.visibility_off,
@@ -149,28 +156,27 @@ class LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Menjalankan fungsi login
-                loginUser(
-                  emailController.text,
-                  passwordController.text,
-                );
-              },
-              style: ButtonStyle(
-                backgroundColor:
-                    WidgetStateProperty.all(const Color(0xFF4AB3FF)),
-                // backgroundColor: Color.fromARGB(12, 3, 3, 3),
-              ),
-              child: const Text(
-                'Masuk',
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              // Menjalankan fungsi login
+              loginUser(
+                emailController.text,
+                passwordController.text,
+              );
+            },
+            style: ButtonStyle(
+              backgroundColor: WidgetStateProperty.all(const Color(0xFF4AB3FF)),
+              // backgroundColor: Color.fromARGB(12, 3, 3, 3),
             ),
-          ],
-        ),
+            child: const Text(
+              'Masuk',
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.w800),
+            ),
+          ),
+        ],
       ),
     );
   }

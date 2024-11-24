@@ -33,7 +33,7 @@ class ProfilPage extends StatelessWidget {
 
           Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => LoginPage()),
+            MaterialPageRoute(builder: (context) => const LoginPage()),
             (route) => false,
           );
         } else {
@@ -68,43 +68,19 @@ class ProfilPage extends StatelessWidget {
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(100.0), // Atur tinggi AppBar
+        preferredSize: const Size.fromHeight(70.0), // Tinggi AppBar
         child: Container(
           decoration: const BoxDecoration(
-            color: Color(0xFF92E3A9), // Warna latar belakang
+            color: Color.fromARGB(255, 124, 226, 153), // Warna latar belakang
             borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(9.0), // Atur radius bawah
+              bottom: Radius.circular(15.0), // Membulatkan sudut bawah
             ),
           ),
-          child: Padding(
-            padding:
-                const EdgeInsets.only(left: 2.0, bottom: 2.0), // Atur padding
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end, // Rata bawah
-              crossAxisAlignment: CrossAxisAlignment.start, // Rata kiri
-              children: [
-                Row(
-                  children: [
-                    IconButton(
-                      color: const Color(0xFF000000),
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                    const SizedBox(width: 0.5), // Jarak antara ikon dan teks
-                    const Text(
-                      'Pengaturan Akun',
-                      style: TextStyle(
-                        fontSize: 20, // Ukuran font
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF000000), // Warna teks
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+          child: AppBar(
+            title: const Text('Pengaturan Akun'),
+            backgroundColor:
+                Colors.transparent, // Mengatur warna AppBar menjadi transparan
+            elevation: 0, // Menghilangkan bayangan
           ),
         ),
       ),
@@ -113,20 +89,17 @@ class ProfilPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                CircleAvatar(
-                  radius: 40,
-                  backgroundColor: Color(0xFF000000), // Latar belakang hitam
-                  child: Icon(
-                    Icons.person,
-                    size: 50,
-                    color: Colors.white, // Warna ikon menjadi putih
-                  ),
-                ),
-                SizedBox(width: 10), // Jarak antara ikon dan teks
-              ],
+            const CircleAvatar(
+              radius: 40,
+              backgroundColor:
+                  Color.fromARGB(255, 124, 226, 153), // Latar belakang hitam
+              child: Icon(
+                Icons.person,
+                size: 50,
+                color: Colors.white, // Warna ikon menjadi putih
+              ),
             ),
+            const SizedBox(width: 10),
             const SizedBox(height: 20),
             FutureBuilder<Map<String, dynamic>>(
               future:
@@ -150,17 +123,17 @@ class ProfilPage extends StatelessWidget {
                       ),
                       const SizedBox(height: 2),
                       _buildInfoRow(
-                          'Nama', userData['name'] ?? 'Tidak ditemukan'),
+                          'Nama :', userData['name'] ?? 'Tidak ditemukan'),
                       _buildInfoRow(
-                          'NIS', userData['nis'] ?? 'Tidak ditemukan'),
+                          'NIS :', userData['nis'] ?? 'Tidak ditemukan'),
                       _buildInfoRow('Status', userData['role'] ?? 'Tidak ada'),
                       _buildInfoRow(
-                          'Email', userData['email'] ?? 'Tidak ditemukan'),
+                          'Email :', userData['email'] ?? 'Tidak ditemukan'),
                       _buildInfoRowWithLink('Sandi', '*******', 'Ubah', () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => UbahSandipage()),
+                              builder: (context) => const UbahSandipage()),
                         );
                         //TODO integrasi api crud siswa
                       }),
@@ -169,13 +142,13 @@ class ProfilPage extends StatelessWidget {
                 }
               },
             ),
-            SizedBox(height: 16),
-            Text(
+            const SizedBox(height: 16),
+            const Text(
               'Lainnya',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8),
-            Text(
+            const SizedBox(height: 8),
+            const Text(
               'Tentang',
               style: TextStyle(fontSize: 16),
             ),
@@ -187,13 +160,17 @@ class ProfilPage extends StatelessWidget {
                   // Logika saat klik "Keluar"
                   logoutUser();
                 },
-                child: Text(
+                child: const Text(
                   'Keluar',
-                  style: TextStyle(color: Colors.red, fontSize: 16),
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             ),
-            SizedBox(height: 16), // Tambahan jarak di bawah tombol Keluar
+            const SizedBox(height: 16), // Tambahan jarak di bawah tombol Keluar
           ],
         ),
       ),
@@ -208,14 +185,14 @@ class ProfilPage extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(fontSize: 16),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           ),
-          SizedBox(height: 3), // Small space between title and content
+          const SizedBox(height: 3), // Small space between title and content
           Padding(
             padding: const EdgeInsets.only(left: 27.0), // Geser konten ke kanan
             child: Text(
               content,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
             ),
           ),
         ],
@@ -232,9 +209,9 @@ class ProfilPage extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(fontSize: 16),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           ),
-          SizedBox(height: 3), // Small space between title and content
+          const SizedBox(height: 3), // Small space between title and content
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -244,7 +221,7 @@ class ProfilPage extends StatelessWidget {
                       left: 27.0), // Geser konten ke kanan
                   child: Text(
                     content,
-                    style: TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 16),
                   ),
                 ),
               ),
@@ -252,7 +229,7 @@ class ProfilPage extends StatelessWidget {
                 onTap: onPressed,
                 child: Text(
                   linkText,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16,
                     color: Colors.blue,
                   ),

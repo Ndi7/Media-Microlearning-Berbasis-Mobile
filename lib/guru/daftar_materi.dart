@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:media_learning_berbasis_mobile/guru/edit_materi.dart';
-import 'Guru_Tambah_Materi.dart';
 import 'package:media_learning_berbasis_mobile/guru/home_page.dart';
 import 'add_materi.dart';
 import 'detail_materi.dart';
@@ -85,126 +84,135 @@ class _MateriScreenState extends State<MateriScreen> {
         ),
       ),
       backgroundColor: const Color(0xFF9BF6B5),
-      body: ListView.builder(
-        itemCount: widget.materiList.length,
-        itemBuilder: (context, index) {
-          final materi = widget.materiList[index];
-          return GestureDetector(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MateriDetailPage(materi: materi)));
-            },
-            child: Card(
-              color: Colors.white,
-              child: ListTile(
-                title: Text(
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 18),
-                    materi['judul'] ?? 'Judul tidak tersedia'),
-                trailing: Wrap(
-                  spacing: -10,
-                  children: [
-                    IconButton(
-                        icon: const Icon(
-                          Icons.edit,
-                          color: Colors.blue,
-                        ),
-                        onPressed: () async {
-                          final result = await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  EditMateriFormPage(materi: materi),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 16.0),
+        child: ListView.builder(
+          itemCount: widget.materiList.length,
+          itemBuilder: (context, index) {
+            final materi = widget.materiList[index];
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            MateriDetailPage(materi: materi)));
+              },
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 22, vertical: 4),
+                child: Card(
+                  color: Colors.white,
+                  child: ListTile(
+                    title: Text(
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18),
+                        materi['judul'] ?? 'Judul tidak tersedia'),
+                    trailing: Wrap(
+                      spacing: -16,
+                      children: [
+                        IconButton(
+                            icon: const Icon(
+                              Icons.edit,
+                              color: Colors.blue,
                             ),
-                          );
-
-                          // Jika update berhasil, perbarui data di layar
-                          if (result == true) {
-                            // Fetch ulang data dari server atau perbarui item di list
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Data materi diperbarui!'),
-                                backgroundColor: Colors.green,
-                              ),
-                            );
-                            // Lakukan tindakan refresh atau fetch ulang data
-                          }
-                        }),
-                    IconButton(
-                      icon: const Icon(
-                        Icons.delete,
-                        color: Colors.redAccent,
-                      ),
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text("Hapus Materi"),
-                              content: const Text(
-                                  "Apakah Anda yakin ingin menghapus materi ini?"),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  child: const Text("Batal"),
+                            onPressed: () async {
+                              final result = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      EditMateriFormPage(materi: materi),
                                 ),
-                                TextButton(
-                                  onPressed: () {
-                                    // Tampilkan dialog konfirmasi sebelum menghapus
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: const Text('Konfirmasi'),
-                                          content: const Text(
-                                            'Apakah Anda yakin ingin menghapus materi ini?',
-                                          ),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(
-                                                    context); // Tutup dialog
-                                              },
-                                              child: const Text('Batal'),
-                                            ),
-                                            TextButton(
-                                              onPressed: () {
-                                                Navigator.pop(
-                                                    context); // Tutup dialog
-                                                deleteMateri(materi[
-                                                    'id']); // Hapus materi
-                                              },
-                                              child: const Text(
-                                                'Hapus',
-                                                style: TextStyle(
-                                                    color: Colors.red),
+                              );
+
+                              // Jika update berhasil, perbarui data di layar
+                              if (result == true) {
+                                // Fetch ulang data dari server atau perbarui item di list
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Data materi diperbarui!'),
+                                    backgroundColor: Colors.green,
+                                  ),
+                                );
+                                // Lakukan tindakan refresh atau fetch ulang data
+                              }
+                            }),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.delete,
+                            color: Colors.redAccent,
+                          ),
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text("Hapus Materi"),
+                                  content: const Text(
+                                      "Apakah Anda yakin ingin menghapus materi ini?"),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: const Text("Batal"),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        // Tampilkan dialog konfirmasi sebelum menghapus
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: const Text('Konfirmasi'),
+                                              content: const Text(
+                                                'Apakah Anda yakin ingin menghapus materi ini?',
                                               ),
-                                            ),
-                                          ],
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(
+                                                        context); // Tutup dialog
+                                                  },
+                                                  child: const Text('Batal'),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(
+                                                        context); // Tutup dialog
+                                                    deleteMateri(materi[
+                                                        'id']); // Hapus materi
+                                                  },
+                                                  child: const Text(
+                                                    'Hapus',
+                                                    style: TextStyle(
+                                                        color: Colors.red),
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          },
                                         );
                                       },
-                                    );
-                                  },
-                                  child: const Text("Hapus"),
-                                ),
-                              ],
+                                      child: const Text("Hapus"),
+                                    ),
+                                  ],
+                                );
+                              },
                             );
                           },
-                        );
-                      },
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-                subtitle: Text(
-                  materi['deskripsi'] ?? 'Deskripsi tidak tersedia',
-                  maxLines: 3,
+                    subtitle: Text(
+                      materi['deskripsi'] ?? 'Deskripsi tidak tersedia',
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

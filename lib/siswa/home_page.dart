@@ -120,10 +120,7 @@ class HomePageState extends State<HomePage> {
                         // Jika ada error
                         else if (snapshot.hasError) {
                           return Text('Error: ${snapshot.error}');
-                        }
-
-                        // Jika berhasil mendapatkan data
-                        else if (snapshot.hasData) {
+                        } else if (snapshot.hasData) {
                           return Text(
                             snapshot.data ??
                                 'Nama tidak ditemukan', // Menampilkan nama pengguna
@@ -134,8 +131,6 @@ class HomePageState extends State<HomePage> {
                             ),
                           );
                         }
-
-                        // Jika tidak ada data
                         return const Text('Tidak ada data');
                       },
                     )
@@ -214,7 +209,10 @@ class HomePageState extends State<HomePage> {
             const SizedBox(height: 60),
             ElevatedButton(
               onPressed: () {
-                // Handle Pengaturan action here
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfilPage()),
+                );
               },
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(double.infinity, 180),

@@ -111,8 +111,6 @@ class BabPageState extends State<BabPageSiswa> {
                       return Wrap(
                         children: List.generate(babList.length, (index) {
                           final bab = babList[index];
-                          // final bab = snapshot.data[index];
-                          // final materiList = bab['materi'];
                           return SizedBox(
                               width: 173, // Atur lebar sesuai kebutuhan
                               height: 185, // Atur tinggi sesuai kebutuhan
