@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 import 'add_materi.dart';
-import 'package:media_learning_berbasis_mobile/guru/home_page.dart';
-// import 'package:media_learning_berbasis_mobile/siswa/home_page.dart';
+import 'home_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'material_model.dart';
+import 'materi_model.dart';
 import 'daftar_materi.dart';
 import 'profil.dart';
 import 'bab_function.dart';
@@ -82,12 +81,9 @@ class BabPageState extends State<BabPage> {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: true,
-          title: const Padding(
-            padding: EdgeInsets.only(),
-            child: Text(
-              'Biologi Kelas 12',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-            ),
+          title: const Text(
+            'Biologi Kelas 12',
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
           toolbarHeight: 70,
           shape: const RoundedRectangleBorder(
@@ -119,53 +115,58 @@ class BabPageState extends State<BabPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton.icon(
-                onPressed: () {
-                  showAddBabDialog(context, () {
-                    setState(() {
-                      getBab();
+              SizedBox(
+                width: 165,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    showAddBabDialog(context, () {
+                      setState(() {
+                        getBab();
+                      });
                     });
-                  });
-                },
-                icon: const Icon(Icons.add),
-                label: const Text(
-                  'Tambah Bab',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
+                  },
+                  icon: const Icon(Icons.add),
+                  label: const Text(
+                    ' Bab',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  foregroundColor: Colors.black,
-                  // minimumSize: const Size(double.infinity, 5),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.black,
+                    // minimumSize: const Size(double.infinity, 5),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
                 ),
               ),
               const SizedBox(
-                width: 15,
+                width: 6,
               ),
-              ElevatedButton.icon(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const MaterialFormPage()));
-                },
-                icon: const Icon(Icons.add),
-                label: const Text(
-                  'Tambah Materi',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
+              SizedBox(
+                width: 165,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MaterialFormPage()));
+                  },
+                  icon: const Icon(Icons.add),
+                  label: const Text(
+                    ' Materi',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  foregroundColor: Colors.black,
-                  // minimumSize: const Size(double.infinity, 5),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
                 ),
               ),
@@ -205,8 +206,6 @@ class BabPageState extends State<BabPage> {
                       return Wrap(
                         children: List.generate(babList.length, (index) {
                           final bab = babList[index];
-                          // final bab = snapshot.data[index];
-                          // final materiList = bab['materi'];
                           return SizedBox(
                               width: 173, // Atur lebar sesuai kebutuhan
                               height: 185, // Atur tinggi sesuai kebutuhan

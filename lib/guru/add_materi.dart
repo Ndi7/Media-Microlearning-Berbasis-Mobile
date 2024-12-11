@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'daftar_materi.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
-import 'add_materi_function.dart';
 
 class MaterialFormPage extends StatefulWidget {
   const MaterialFormPage({super.key});
@@ -32,10 +32,11 @@ class MaterialFormPageState extends State<MaterialFormPage> {
   Future<void> fetchChapters() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
+    final apiUrl = dotenv.env['API_URL']!;
 
     try {
       final response = await http.get(
-        Uri.parse('http://10.0.2.2:8000/api/bab'),
+        Uri.parse('$apiUrl/bab'),
         headers: {
           'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
@@ -44,9 +45,6 @@ class MaterialFormPageState extends State<MaterialFormPage> {
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> responseData = json.decode(response.body);
-        // print("Data Bab dari API: $responseData");
-
-        // Gunakan key 'bab' sesuai dengan respons API Anda
         if (responseData.containsKey('bab')) {
           final List<dynamic> data = responseData['bab'];
           setState(() {
@@ -56,6 +54,15 @@ class MaterialFormPageState extends State<MaterialFormPage> {
                 'judul': item['judul_bab'], // Menggunakan 'judul_bab' dari API
               };
             }).toList();
+            // Sorting berdasarkan nomor bab
+            chapters.sort((a, b) {
+              RegExp regex = RegExp(r'Bab (\d+)');
+              int? numA =
+                  int.tryParse(regex.firstMatch(a['judul'])?.group(1) ?? '0');
+              int? numB =
+                  int.tryParse(regex.firstMatch(b['judul'])?.group(1) ?? '0');
+              return (numA ?? 0).compareTo(numB ?? 0);
+            });
             selectedChapterId = null;
             isLoading = false;
           });
@@ -90,13 +97,14 @@ class MaterialFormPageState extends State<MaterialFormPage> {
       );
       return;
     }
+    final apiUrl = dotenv.env['API_URL']!;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
 
     final String title = _titleController.text;
     final String description = _descriptionController.text;
-    final url = Uri.parse("http://10.0.2.2:8000/api/materi");
+    final url = Uri.parse('$apiUrl/materi');
     try {
       final request = http.MultipartRequest('POST', url)
         ..headers.addAll({

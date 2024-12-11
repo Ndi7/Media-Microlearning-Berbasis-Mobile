@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'bab_page.dart';
 import 'profil.dart'; // Import your profil page
 import 'kelas_screen.dart'; // Import your profil page
@@ -43,13 +44,12 @@ class HomePageState extends State<HomePageGuru> {
     // Ambil token dari shared preferences
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('token');
-
+    final apiUrl = dotenv.env['API_URL']!;
     if (token == null) {
       throw Exception('Token tidak ditemukan');
     }
 
-    final url = Uri.parse(
-        'http://10.0.2.2:8000/api/me'); // Ganti dengan URL yang sesuai
+    final url = Uri.parse('$apiUrl/me'); // Ganti dengan URL yang sesuai
 
     final response = await http.get(
       url,
@@ -161,102 +161,104 @@ class HomePageState extends State<HomePageGuru> {
         ),
       ),
       backgroundColor: const Color.fromARGB(255, 155, 246, 181),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            const SizedBox(height: 50),
-            ElevatedButton(
-              onPressed: () {
-                // Navigate to BabPage
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const KelasPage()),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(double.infinity, 180),
-                backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                    bottomLeft: Radius.circular(30),
-                    bottomRight: Radius.circular(0),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 50),
+              ElevatedButton(
+                onPressed: () {
+                  // Navigate to BabPage
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const KelasPage()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(double.infinity, 180),
+                  backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                      bottomLeft: Radius.circular(30),
+                      bottomRight: Radius.circular(0),
+                    ),
+                  ),
+                  elevation: 5,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'MATERI',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Image.asset(
+                        'assets/images/mateributton.png',
+                        width: 120,
+                        height: 120,
+                        fit: BoxFit.cover,
+                      ),
+                    ],
                   ),
                 ),
-                elevation: 5,
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'MATERI',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
+              const SizedBox(height: 60),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ProfilPage()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(double.infinity, 180),
+                  backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(30),
+                      bottomLeft: Radius.circular(30),
+                      bottomRight: Radius.circular(30),
                     ),
-                    const SizedBox(width: 10),
-                    Image.asset(
-                      'assets/images/mateributton.png',
-                      width: 120,
-                      height: 120,
-                      fit: BoxFit.cover,
-                    ),
-                  ],
+                  ),
+                  elevation: 5,
                 ),
-              ),
-            ),
-            const SizedBox(height: 60),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const ProfilPage()),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(double.infinity, 180),
-                backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(30),
-                    bottomLeft: Radius.circular(30),
-                    bottomRight: Radius.circular(30),
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'PENGATURAN',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Image.asset(
+                        'assets/images/pengaturanbutton.png',
+                        width: 100,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      ),
+                    ],
                   ),
                 ),
-                elevation: 5,
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      'PENGATURAN',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Image.asset(
-                      'assets/images/pengaturanbutton.png',
-                      width: 100,
-                      height: 100,
-                      fit: BoxFit.cover,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 40),
-          ],
+              const SizedBox(height: 40),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: ClipRRect(

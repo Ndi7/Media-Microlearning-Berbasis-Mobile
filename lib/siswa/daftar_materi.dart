@@ -35,7 +35,7 @@ class _MateriScreenState extends State<MateriScreen> {
       ),
       backgroundColor: const Color(0xFF9BF6B5),
       body: Padding(
-        padding: const EdgeInsets.only(top: 8),
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
         child: ListView.builder(
           itemCount: widget.materiList.length,
           itemBuilder: (context, index) {
@@ -48,9 +48,8 @@ class _MateriScreenState extends State<MateriScreen> {
                         builder: (context) =>
                             MateriDetailPage(materi: materi)));
               },
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 22, vertical: 4),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Card(
                   color: Colors.white,
                   child: ListTile(

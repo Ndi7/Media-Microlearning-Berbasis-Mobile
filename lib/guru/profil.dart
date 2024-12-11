@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:path/path.dart';
 import '../siswa/ubahsandi.dart'; // Pastikan untuk mengimpor halaman Ubah Sandi
 import '../siswa/ubahnohp_page.dart'; // Pastikan untuk mengimpor halaman Ubah Nomor HP
@@ -21,8 +22,9 @@ class ProfilPage extends StatelessWidget {
     //fungsi Logout
     Future<void> logoutUser() async {
       String? token = await getToken();
+      final apiUrl = dotenv.env['API_URL']!;
       if (token != null) {
-        final url = Uri.parse('http://10.0.2.2:8000/api/logout');
+        final url = Uri.parse('$apiUrl/logout');
         final response = await http.get(
           url,
           headers: {
@@ -51,12 +53,12 @@ class ProfilPage extends StatelessWidget {
     Future<Map<String, dynamic>> getUserData() async {
       final prefs = await SharedPreferences.getInstance();
       String? token = prefs.getString('token');
-
+      final apiUrl = dotenv.env['API_URL']!;
       if (token == null) {
         throw Exception('Token tidak ditemukan');
       }
 
-      final url = Uri.parse('http://10.0.2.2:8000/api/me');
+      final url = Uri.parse('$apiUrl/me');
       final response = await http.get(url, headers: {
         'Authorization': 'Bearer $token',
       });

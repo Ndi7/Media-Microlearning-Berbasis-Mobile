@@ -32,20 +32,21 @@ dependencies:
     sdk: flutter
   font_awesome_flutter: ^10.0.0
   # Additional packages
+  video_player: ^2.9.2
   file_picker: ^8.1.3 # For selecting files from device
   url_launcher: ^6.0.9 # For launching URLs
-
+  flick_video_player: ^0.9.0
   cupertino_icons: ^1.0.8
   http: ^1.2.2
   shared_preferences: ^2.3.2
   fluttertoast: ^8.2.1
   flutter_pdfview: ^1.3.4
-  flutter_video_view: ^2.1.1
-  video_player: ^2.9.2
+
   path: ^1.9.0
   path_provider: ^2.1.5
   dio: ^5.7.0
   google_fonts: ^6.2.1
+  flutter_dotenv: ^5.2.1
 
 dev_dependencies:
   flutter_test:
@@ -77,6 +78,7 @@ flutter:
     - assets/images/nilai.png
     - assets/images/profil.png
     - assets/images/logo.png
+    - .env
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

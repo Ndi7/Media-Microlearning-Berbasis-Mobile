@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
@@ -87,6 +90,7 @@ class EditMateriFormPageState extends State<EditMateriFormPage> {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? token = prefs.getString('token');
+      final apiUrl = dotenv.env['API_URL']!;
 
       if (token == null) {
         throw Exception('Token tidak ditemukan');
@@ -96,7 +100,7 @@ class EditMateriFormPageState extends State<EditMateriFormPage> {
       final String title = _titleController.text.trim();
       final String description = _descriptionController.text.trim();
 
-      final url = Uri.parse("http://10.0.2.2:8000/api/materi/$materiId");
+      final url = Uri.parse("$apiUrl/materi/$materiId");
 
       final request = http.MultipartRequest('POST', url)
         ..headers.addAll({
@@ -118,12 +122,15 @@ class EditMateriFormPageState extends State<EditMateriFormPage> {
       if (!context.mounted) return;
 
       if (response.statusCode == 200) {
+        final updatedMateri = json.decode(response.body);
+
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Materi berhasil diupdate!'),
             backgroundColor: Colors.green,
           ),
         );
+        Navigator.pop(context, updatedMateri);
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(

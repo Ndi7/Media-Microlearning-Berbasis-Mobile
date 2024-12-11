@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -9,8 +10,9 @@ Future<void> addBab(
     BuildContext context, String namaBab, VoidCallback onSuccess) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String? token = prefs.getString('token');
+  final apiUrl = dotenv.env['API_URL']!;
 
-  final url = Uri.parse('http://10.0.2.2:8000/api/bab');
+  final url = Uri.parse('$apiUrl/bab');
   try {
     final response = await http.post(
       url,
@@ -100,11 +102,12 @@ void showAddBabDialog(BuildContext context, VoidCallback onSuccess) {
 Future getBab() async {
   final prefs = await SharedPreferences.getInstance();
   String? token = prefs.getString('token');
+  final apiUrl = dotenv.env['API_URL']!;
 
   if (token == null) {
     throw Exception('Token tidak ditemukan');
   }
-  final url = Uri.parse('http://10.0.2.2:8000/api/bab');
+  final url = Uri.parse('$apiUrl/bab');
   final response = await http.get(url, headers: {
     'Authorization': 'Bearer $token',
   });
@@ -122,12 +125,13 @@ Future getBab() async {
 Future<void> editBab(int id, String judulBab) async {
   final prefs = await SharedPreferences.getInstance();
   String? token = prefs.getString('token');
+  final apiUrl = dotenv.env['API_URL']!;
 
   if (token == null) {
     throw Exception('Token tidak ditemukan');
   }
 
-  final url = Uri.parse('http://10.0.2.2:8000/api/bab/$id');
+  final url = Uri.parse('$apiUrl/$id');
   final response = await http.patch(
     url,
     headers: {
@@ -149,12 +153,13 @@ Future<void> editBab(int id, String judulBab) async {
 Future<void> deleteBab(int id) async {
   final prefs = await SharedPreferences.getInstance();
   String? token = prefs.getString('token');
+  final apiUrl = dotenv.env['API_URL']!;
 
   if (token == null) {
     throw Exception('Token tidak ditemukan');
   }
 
-  final url = Uri.parse('http://10.0.2.2:8000/api/bab/$id');
+  final url = Uri.parse('$apiUrl/$id');
   final response = await http.delete(
     url,
     headers: {
