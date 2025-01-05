@@ -96,8 +96,7 @@ class ProfilPage extends StatelessWidget {
           children: [
             const CircleAvatar(
               radius: 40,
-              backgroundColor:
-                  Color.fromARGB(255, 124, 226, 153), // Latar belakang hitam
+              backgroundColor: Colors.black, // Latar belakang hitam
               child: Icon(
                 Icons.person,
                 size: 50,
