@@ -122,6 +122,7 @@ Future getBab() async {
 }
 
 // Fungsi untuk melakukan request edit bab
+// Fungsi untuk edit bab dengan error handling yang lebih baik
 Future<void> editBab(int id, String judulBab) async {
   final prefs = await SharedPreferences.getInstance();
   String? token = prefs.getString('token');
@@ -131,25 +132,41 @@ Future<void> editBab(int id, String judulBab) async {
     throw Exception('Token tidak ditemukan');
   }
 
-  final url = Uri.parse('$apiUrl/$id');
-  final response = await http.patch(
-    url,
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    },
-    body: jsonEncode({'judul_bab': judulBab}),
-  );
+  // Pastikan URL lengkap sesuai dengan endpoint
+  final url =
+      Uri.parse('$apiUrl/bab/$id'); // Sesuaikan dengan endpoint yang benar
 
-  if (response.statusCode == 200) {
-    print('Berhasil mengedit Bab');
-  } else {
-    print('Gagal mengedit Bab: ${response.statusCode}');
-    throw Exception('Gagal mengedit data Bab');
+  try {
+    print('Sending PATCH request to: $url');
+    print('Request body: ${jsonEncode({'judul_bab': judulBab})}');
+
+    final response = await http.patch(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+        'Accept': 'application/json', // Tambahkan header Accept
+      },
+      body: jsonEncode({'judul_bab': judulBab}),
+    );
+
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+
+    if (response.statusCode == 200) {
+      print('Berhasil mengedit Bab');
+    } else {
+      print('Gagal mengedit Bab: ${response.statusCode}');
+      print('Error message: ${response.body}');
+      throw Exception('Gagal mengedit data Bab: ${response.statusCode}');
+    }
+  } catch (e) {
+    print('Error during edit: $e');
+    throw Exception('Gagal mengedit data Bab: $e');
   }
 }
 
-// Fungsi untuk melakukan request delete bab
+// Fungsi untuk delete bab dengan error handling yang lebih baik
 Future<void> deleteBab(int id) async {
   final prefs = await SharedPreferences.getInstance();
   String? token = prefs.getString('token');
@@ -159,19 +176,34 @@ Future<void> deleteBab(int id) async {
     throw Exception('Token tidak ditemukan');
   }
 
-  final url = Uri.parse('$apiUrl/$id');
-  final response = await http.delete(
-    url,
-    headers: {
-      'Authorization': 'Bearer $token',
-    },
-  );
+  // Pastikan URL lengkap sesuai dengan endpoint
+  final url =
+      Uri.parse('$apiUrl/bab/$id'); // Sesuaikan dengan endpoint yang benar
 
-  if (response.statusCode == 200) {
-    print('Berhasil menghapus Bab');
-  } else {
-    print('Gagal menghapus Bab: ${response.statusCode}');
-    throw Exception('Gagal menghapus data Bab');
+  try {
+    print('Sending DELETE request to: $url');
+
+    final response = await http.delete(
+      url,
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Accept': 'application/json', // Tambahkan header Accept
+      },
+    );
+
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+
+    if (response.statusCode == 200) {
+      print('Berhasil menghapus Bab');
+    } else {
+      print('Gagal menghapus Bab: ${response.statusCode}');
+      print('Error message: ${response.body}');
+      throw Exception('Gagal menghapus data Bab: ${response.statusCode}');
+    }
+  } catch (e) {
+    print('Error during delete: $e');
+    throw Exception('Gagal menghapus data Bab: $e');
   }
 }
 

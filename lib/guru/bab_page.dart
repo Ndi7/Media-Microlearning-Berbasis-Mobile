@@ -93,234 +93,340 @@ class BabPageState extends State<BabPage> {
         backgroundColor: const Color(0xFF9BF6B5),
         body: SingleChildScrollView(
             child: Column(children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 26, 16, 8),
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Cari Bab',
-                prefixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide.none,
-                ),
-                filled: true,
-                fillColor: Colors.white70,
-              ),
-              onChanged: (value) {
-                // Implement search functionality here
-              },
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.fromLTRB(16, 26, 16, 8),
+          //   child: TextField(
+          //     decoration: InputDecoration(
+          //       hintText: 'Cari Bab',
+          //       prefixIcon: const Icon(Icons.search),
+          //       border: OutlineInputBorder(
+          //         borderRadius: BorderRadius.circular(30),
+          //         borderSide: BorderSide.none,
+          //       ),
+          //       filled: true,
+          //       fillColor: Colors.white70,
+          //     ),
+          //     onChanged: (value) {
+          //       // Implement search functionality here
+          //     },
+          //   ),
+          // ),
           // Add Bab Button
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 165,
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    showAddBabDialog(context, () {
-                      setState(() {
-                        getBab();
-                      });
-                    });
-                  },
-                  icon: const Icon(Icons.add),
-                  label: const Text(
-                    ' Bab',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.black,
-                    // minimumSize: const Size(double.infinity, 5),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 6,
-              ),
-              SizedBox(
-                width: 165,
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const MaterialFormPage()));
-                  },
-                  icon: const Icon(Icons.add),
-                  label: const Text(
-                    ' Materi',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.black,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          //Card Bab Start
-          SingleChildScrollView(
-            child: Column(
+          Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                FutureBuilder(
-                  future: getBab(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                    if (snapshot.hasError) {
-                      return Center(child: Text('Error: ${snapshot.error}'));
-                    }
-                    if (snapshot.hasData) {
-                      // print(snapshot.data);
-                      List babList = snapshot.data as List;
-                      // Sorting berdasarkan nomor bab
-                      babList.sort((a, b) {
-                        // Ekstrak nomor dari judul bab (contoh: "Bab 1" -> 1)
-                        int numA = int.tryParse(RegExp(r'\d+')
-                                    .firstMatch(a['judul_bab'])
-                                    ?.group(0) ??
-                                '0') ??
-                            0;
-                        int numB = int.tryParse(RegExp(r'\d+')
-                                    .firstMatch(b['judul_bab'])
-                                    ?.group(0) ??
-                                '0') ??
-                            0;
-                        return numA.compareTo(numB);
+                SizedBox(
+                  width: 165,
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      showAddBabDialog(context, () {
+                        setState(() {
+                          getBab();
+                        });
                       });
-                      return Wrap(
-                        children: List.generate(babList.length, (index) {
-                          final bab = babList[index];
-                          return SizedBox(
-                              width: 173, // Atur lebar sesuai kebutuhan
-                              height: 185, // Atur tinggi sesuai kebutuhan
-                              child: GestureDetector(
-                                onTap: () {
-                                  final materiList = bab['materi'] ?? [];
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          MateriScreen(materiList: materiList),
-                                    ),
-                                  );
-                                },
-                                child: Card(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      //titik tiga
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        children: [
-                                          PopupMenuButton<String>(
-                                            icon: const Icon(Icons.more_vert),
-                                            onSelected: (value) {
-                                              if (value == 'edit') {
-                                                int idBab =
-                                                    babList[index]['id'];
-                                                String judulBab =
-                                                    babList[index]['judul_bab'];
-                                                EditDialog.show(
-                                                  context,
-                                                  idBab,
-                                                  judulBab,
-                                                  (editedText) {
-                                                    setState(() {
-                                                      // Update judul bab di data lokal setelah edit
-                                                      babList[index]
-                                                              ['judul_bab'] =
-                                                          editedText;
-                                                    });
-                                                  },
-                                                );
-                                              } else if (value == 'delete') {
-                                                int idBab =
-                                                    babList[index]['id'];
-                                                _showDeleteConfirmation(
-                                                    context, idBab, index,
-                                                    (int index) {
-                                                  setState(() {
-                                                    babList.removeAt(index);
-                                                  });
-                                                  ScaffoldMessenger.of(context)
-                                                      .showSnackBar(
-                                                    SnackBar(
-                                                        content: const Text(
-                                                            'Berhasil menghapus Bab'),
-                                                        backgroundColor:
-                                                            Colors.blue[600]),
-                                                  );
-                                                });
-                                              }
-                                            },
-                                            itemBuilder:
-                                                (BuildContext context) => [
-                                              const PopupMenuItem<String>(
-                                                value: 'edit',
-                                                child: Row(
-                                                  children: [
-                                                    Icon(Icons.edit,
-                                                        color: Colors.blue),
-                                                    SizedBox(width: 8),
-                                                    Text('Edit'),
-                                                  ],
-                                                ),
-                                              ),
-                                              const PopupMenuItem<String>(
-                                                value: 'delete',
-                                                child: Row(
-                                                  children: [
-                                                    Icon(Icons.delete,
-                                                        color: Colors.red),
-                                                    SizedBox(width: 8),
-                                                    Text('Hapus'),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 25.0),
-                                        child: Text(
-                                          bab['judul_bab'] ??
-                                              'Bab tidak tersedia',
-                                          style: const TextStyle(
-                                              fontSize: 18.0,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ));
-                        }),
-                      );
-                    } else {
-                      return const Center(child: Text('No data available'));
-                    }
-                  },
+                    },
+                    icon: const Icon(Icons.add),
+                    label: const Text(
+                      ' Bab',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black,
+                      // minimumSize: const Size(double.infinity, 5),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 6,
+                ),
+                SizedBox(
+                  width: 165,
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MaterialFormPage()));
+                    },
+                    icon: const Icon(Icons.add),
+                    label: const Text(
+                      ' Materi',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ),
                 ),
               ],
+            ),
+          ),
+          //Card Bab Start
+          Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  FutureBuilder(
+                    future: getBab(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      if (snapshot.hasError) {
+                        return Center(child: Text('Error: ${snapshot.error}'));
+                      }
+                      if (snapshot.hasData) {
+                        // print(snapshot.data);
+                        List babList = snapshot.data as List;
+                        // Sorting berdasarkan nomor bab
+                        babList.sort((a, b) {
+                          // Ekstrak nomor dari judul bab (contoh: "Bab 1" -> 1)
+                          int numA = int.tryParse(RegExp(r'\d+')
+                                      .firstMatch(a['judul_bab'])
+                                      ?.group(0) ??
+                                  '0') ??
+                              0;
+                          int numB = int.tryParse(RegExp(r'\d+')
+                                      .firstMatch(b['judul_bab'])
+                                      ?.group(0) ??
+                                  '0') ??
+                              0;
+                          return numA.compareTo(numB);
+                        });
+                        return Wrap(
+                          children: List.generate(babList.length, (index) {
+                            final bab = babList[index];
+                            return SizedBox(
+                                width: 173, // Atur lebar sesuai kebutuhan
+                                height: 185, // Atur tinggi sesuai kebutuhan
+                                child: GestureDetector(
+                                  onTap: () {
+                                    final materiList = bab['materi'] ?? [];
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => MateriScreen(
+                                            materiList: materiList),
+                                      ),
+                                    );
+                                  },
+                                  child: Card(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            PopupMenuButton<String>(
+                                              icon: const Icon(Icons.more_vert),
+                                              onSelected: (value) async {
+                                                try {
+                                                  if (value == 'edit') {
+                                                    int idBab =
+                                                        babList[index]['id'];
+                                                    String judulBab =
+                                                        babList[index]
+                                                            ['judul_bab'];
+                                                    EditDialog.show(
+                                                      context,
+                                                      idBab,
+                                                      judulBab,
+                                                      (editedText) async {
+                                                        try {
+                                                          await editBab(idBab,
+                                                              editedText);
+                                                          setState(() {
+                                                            babList[index][
+                                                                    'judul_bab'] =
+                                                                editedText;
+                                                          });
+                                                          if (context.mounted) {
+                                                            ScaffoldMessenger
+                                                                    .of(context)
+                                                                .showSnackBar(
+                                                              SnackBar(
+                                                                content: const Text(
+                                                                    'Berhasil mengedit Bab'),
+                                                                backgroundColor:
+                                                                    Colors.green[
+                                                                        600],
+                                                              ),
+                                                            );
+                                                          }
+                                                        } catch (e) {
+                                                          if (context.mounted) {
+                                                            ScaffoldMessenger
+                                                                    .of(context)
+                                                                .showSnackBar(
+                                                              SnackBar(
+                                                                content: Text(
+                                                                    'Gagal mengedit Bab: $e'),
+                                                                backgroundColor:
+                                                                    Colors.red,
+                                                              ),
+                                                            );
+                                                          }
+                                                        }
+                                                      },
+                                                    );
+                                                  } else if (value ==
+                                                      'delete') {
+                                                    int idBab =
+                                                        babList[index]['id'];
+                                                    showDialog(
+                                                      context: context,
+                                                      builder: (BuildContext
+                                                          context) {
+                                                        return AlertDialog(
+                                                          title: const Text(
+                                                              'Konfirmasi'),
+                                                          content: const Text(
+                                                              'Apakah Anda yakin ingin menghapus bab ini?'),
+                                                          actions: <Widget>[
+                                                            TextButton(
+                                                              child: const Text(
+                                                                  'Batal'),
+                                                              onPressed: () {
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                              },
+                                                            ),
+                                                            TextButton(
+                                                              child: const Text(
+                                                                  'Hapus'),
+                                                              onPressed:
+                                                                  () async {
+                                                                try {
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop(); // Tutup dialog
+                                                                  await deleteBab(
+                                                                      idBab);
+                                                                  setState(() {
+                                                                    babList.removeAt(
+                                                                        index);
+                                                                  });
+                                                                  if (context
+                                                                      .mounted) {
+                                                                    ScaffoldMessenger.of(
+                                                                            context)
+                                                                        .showSnackBar(
+                                                                      SnackBar(
+                                                                        content:
+                                                                            const Text('Berhasil menghapus Bab'),
+                                                                        backgroundColor:
+                                                                            Colors.green[600],
+                                                                      ),
+                                                                    );
+                                                                  }
+                                                                } catch (e) {
+                                                                  if (context
+                                                                      .mounted) {
+                                                                    ScaffoldMessenger.of(
+                                                                            context)
+                                                                        .showSnackBar(
+                                                                      SnackBar(
+                                                                        content:
+                                                                            Text('Gagal menghapus Bab: $e'),
+                                                                        backgroundColor:
+                                                                            Colors.red,
+                                                                      ),
+                                                                    );
+                                                                  }
+                                                                }
+                                                              },
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
+                                                  }
+                                                } catch (e) {
+                                                  if (context.mounted) {
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                      SnackBar(
+                                                        content: Text(
+                                                            'Terjadi kesalahan: $e'),
+                                                        backgroundColor:
+                                                            Colors.red,
+                                                      ),
+                                                    );
+                                                  }
+                                                }
+                                              },
+                                              itemBuilder:
+                                                  (BuildContext context) => [
+                                                const PopupMenuItem<String>(
+                                                  value: 'edit',
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(Icons.edit,
+                                                          color: Colors.blue),
+                                                      SizedBox(width: 8),
+                                                      Text('Edit'),
+                                                    ],
+                                                  ),
+                                                ),
+                                                const PopupMenuItem<String>(
+                                                  value: 'delete',
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(Icons.delete,
+                                                          color: Colors.red),
+                                                      SizedBox(width: 8),
+                                                      Text('Hapus'),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 25.0),
+                                          child: Text(
+                                            bab['judul_bab'] ??
+                                                'Bab tidak tersedia',
+                                            style: const TextStyle(
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ));
+                          }),
+                        );
+                      } else {
+                        return const Center(child: Text('No data available'));
+                      }
+                    },
+                  ),
+                ],
+              ),
             ),
           )
         ])));

@@ -34,7 +34,7 @@ class _MateriDetailPageState extends State<MateriDetailPage> {
     if (filePath != null && p.extension(filePath) == '.mp4') {
       final String videoUrl = filePath.startsWith('http')
           ? filePath
-          : 'http://10.0.2.2:8000/storage/$filePath';
+          : 'https://sma-it.learning-ulil-albab.site/storage/$filePath';
       _videoController = VideoPlayerController.network(videoUrl)
         ..initialize().then((_) {
           setState(() {}); // Refresh UI when video is initialized
@@ -332,9 +332,10 @@ Widget _buildFileButton(BuildContext context, String? filePath) {
 }
 
 Future<void> _handleFileDownload(BuildContext context, String filePath) async {
-  final String fileUrl = filePath.startsWith('http')
-      ? filePath
-      : 'http://10.0.2.2:8000/storage/$filePath';
+  const String baseUrl = 'https://sma-it.learning-ulil-albab.site/api';
+  final String fileUrl =
+      filePath.startsWith('http') ? filePath : '$baseUrl/storage/$filePath';
+
   log('URL file: $fileUrl');
 
   try {
@@ -347,16 +348,18 @@ Future<void> _handleFileDownload(BuildContext context, String filePath) async {
       await FileHandlerService.handleDownloadedFile(
           context, fileUrl, downloadedFilePath);
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Gagal mengunduh file')),
-      );
+      _showErrorSnackBar(context, 'Gagal mengunduh file');
     }
   } catch (e) {
     log('Error saat mengunduh file: $e');
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Terjadi kesalahan saat mengunduh file')),
-    );
+    _showErrorSnackBar(context, 'Terjadi kesalahan saat mengunduh file');
   }
+}
+
+void _showErrorSnackBar(BuildContext context, String message) {
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(content: Text(message)),
+  );
 }
 
 class PdfViewerPage extends StatelessWidget {
